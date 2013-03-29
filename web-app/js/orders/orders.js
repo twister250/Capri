@@ -47,11 +47,13 @@ function addToCart(i, product){
 		
 	console.log(cart);
 	
-	populateCart(product);
+	createParams(product);
+	
+	populateCart();
 	
 }
 
-function populateCart(product){
+function createParams(product){
 	
 	var input = $('#cartproduct').children('input[name="product"]');
 	var bool = false;
@@ -82,6 +84,40 @@ function populateCart(product){
 			.attr('name','product')
 		);
 	}		
+}
+
+function populateCart(){
+	if($('#cartFoot').css('display') == 'none'){
+		$('#cartFoot').css('display','');
+	}
+	
+	$('#cartBody').remove();
+	
+	/* TODO 
+	 * 
+	 * Preencher carrinho
+	 *
+	*/
+	for(var cont = 0; cont < cart.length; cont++){
+		$('#cartBody')
+		.append(
+			$('<tr>')
+			.attr('id',cart[cont].id)
+			.append(
+				$('<td>').text(cart[cont].name)				
+			)
+			.append(
+				$('<td>')
+				.attr('value',cart[cont].qtd)
+				.text(cart[cont].qtd)
+			)
+			.append(
+				$('<td>')
+				.attr('value',cart[cont].cost)
+				.text(parseFloat(cart[cont].cost).toFixed(2))
+			)
+		);
+	}
 }
 
 /*

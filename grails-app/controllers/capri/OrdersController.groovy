@@ -92,13 +92,14 @@ class OrdersController {
 
     def edit(Long id) {
         def ordersInstance = Orders.get(id)
+		def client = Client.get(ordersInstance.client.id)
         if (!ordersInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
             return
         }
 
-        [ordersInstance: ordersInstance]
+        [ordersInstance: ordersInstance, client: client]
     }
 
     def update(Long id, Long version) {

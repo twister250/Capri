@@ -11,12 +11,12 @@
 		<a href="#list-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
+				<li><g:link class="create" action="create">Novo Pedido</g:link></li>
 			</ul>
 		</div>
 		<div id="list-orders" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>Pedidos</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -24,9 +24,11 @@
 				<thead>
 					<tr>
 					
-						<th><g:message code="orders.client.label" default="Client" /></th>
+						<%-- <th><g:message code="orders.client.label" default="Cliente" /></th> --%>
+						
+						<g:sortableColumn property="client" title="${message(code: 'orders.date.label', default: 'Cliente')}" />
 					
-						<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Date')}" />
+						<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
 					
 						<g:sortableColumn property="total" title="${message(code: 'orders.total.label', default: 'Total')}" />
 					
@@ -36,11 +38,11 @@
 				<g:each in="${ordersInstanceList}" status="i" var="ordersInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "client")}</g:link></td>
+						<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "client.name")}</g:link></td>
 					
 						<td><g:formatDate date="${ordersInstance.date}" /></td>
 					
-						<td>${fieldValue(bean: ordersInstance, field: "total")}</td>
+						<td>R$ ${fieldValue(bean: ordersInstance, field: "total")}</td>
 					
 					</tr>
 				</g:each>
