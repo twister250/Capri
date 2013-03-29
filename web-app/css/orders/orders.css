@@ -1,0 +1,67 @@
+@CHARSET "US-ASCII";
+
+.pizzas{
+	border: 2px outset #cccccc;
+	border-radius: 5px;
+	width: 250px;
+	height: 80px;
+	float: left;
+	margin-right: 20px;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.pizzas:hover, .pizzas:focus{
+	border: 2px inset #cccccc;
+}
+
+dt{
+	border-radius: 5px 5px 0 0;
+	background-color: #eeeeee;
+	height: 30px;
+}
+
+strong{
+	margin: 0 0 0 10px;
+	vertical-align: sub;
+}
+
+span{
+	float: right;
+	margin-right: 7px;
+	color: #48802C;
+	vertical-align: sub;
+	padding: 4px;
+}
+
+dd{
+	margin-left: 10px;
+	font-size: 12px;
+}
+
+
+#div{
+	float: left;
+	width: 254px;
+	height: 130px;
+	margin-left: 25px;	
+}
+
+.span{
+	margin-top: 3px;
+	cursor: pointer;	
+}
+.span:hover, .span:focus{
+	color: #ffffff;
+	border-radius: 3px;
+	background-color: #48802C;
+}
+
+.span2{
+	margin-top: 4px;
+	color: #ffffff;
+	border-radius: 3px;
+	background-color: #48802C;
+}
+
+
