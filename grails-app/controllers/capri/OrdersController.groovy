@@ -39,8 +39,9 @@ class OrdersController {
         
 		params.date = new Date()
 		params.client = Client.findById(params.clientId)		
-		params.total = 0
-				
+
+		print params
+			
 		def product
 		def amount
 		def items
@@ -66,9 +67,7 @@ class OrdersController {
 			}
 			params.product.eachWithIndex{ obj, index ->
 				product[index] = Product.get(obj[0])
-				print product
 				amount[index] = obj[2]
-				print amount
 				items = new Items(order: order, product: product[index], amount: amount[index])
 				order.addToItems(items)
 				items.save()
@@ -91,44 +90,49 @@ class OrdersController {
     }
 
     def edit(Long id) {
-        def ordersInstance = Orders.get(id)
-		def client = Client.get(ordersInstance.client.id)
-        if (!ordersInstance) {
+        def order = Orders.get(id)
+		def client = Client.get(order.client.id)
+		def items = Items.findAllByOrder(order)
+		print items
+		def products = Product.list(sort: "category")
+        if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
             return
         }
 
-        [ordersInstance: ordersInstance, client: client]
+        [order: order, client: client, items: items, products: products]
     }
 
     def update(Long id, Long version) {
-        def ordersInstance = Orders.get(id)
-        if (!ordersInstance) {
+        def order = Orders.get(id)
+		def client = Client.findById(order.client.id)
+		
+        if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
             return
         }
 
         if (version != null) {
-            if (ordersInstance.version > version) {
-                ordersInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+            if (order.version > version) {
+                order.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'orders.label', default: 'Orders')] as Object[],
                           "Another user has updated this Orders while you were editing")
-                render(view: "edit", model: [ordersInstance: ordersInstance])
+                render(view: "edit", model: [order: order])
                 return
             }
         }
 
-        ordersInstance.properties = params
+        order.properties = params
 
-        if (!ordersInstance.save(flush: true)) {
-            render(view: "edit", model: [ordersInstance: ordersInstance])
+        if (!order.save(flush: true)) {
+            render(view: "edit", model: [order: order, client: client])
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'orders.label', default: 'Orders'), ordersInstance.id])
-        redirect(action: "show", id: ordersInstance.id)
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'orders.label', default: 'Orders'), order.id])
+        redirect(action: "show", id: order.id)
     }
 
     def delete(Long id) {

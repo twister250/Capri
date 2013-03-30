@@ -21,7 +21,7 @@
 						cost: '${product.cost}',
 						category: '${product.category.id}',
 						type:'${product.category.type.toLowerCase()}',
-						qtd: 1
+						amount: 1
 					}<g:if test="${products.get(i) != products[-1]}">,</g:if>
 				</g:each>
 			]
@@ -123,10 +123,10 @@
 					
 					<h1>Pedido</h1>
 					<fieldset style="padding: 20px 0 30px;">										
-						<table>
-							<thead>
+						<table id="cartTable">
+							<thead id="cartHead">
 								<tr>
-									<th>Produto</th><th>Quantidade</th><th>Valor</th><th></th>
+									<th>Produto</th><th>Unidade</th><th>Quantidade</th><th>Subtotal</th><th>Remover Produto</th>
 								</tr>
 							</thead>
 							<tbody id="cartBody">
@@ -134,7 +134,8 @@
 							<tfoot id="cartFoot" style="display: none;">
 								<tr>
 									<th>Total</th>
-									<th id="totalQtd"></th>
+									<th></th>
+									<th id="totalAmount"></th>
 									<th id="totalCost"></th>
 									<th></th>
 								</tr>							

@@ -1,5 +1,4 @@
 var cart = new Array();
-var totalAmt = 0;
 var ncost = 0;
 var halfPizza = false;
 
@@ -27,7 +26,7 @@ function addToCart(i, product){
 			
 			if(cart[cont].type == obj[i].type && cart[cont].id == obj[i].id){
 				
-				cart[cont].qtd++;
+				cart[cont].amount++;
 				bool = false;
 				
 				break;
@@ -64,7 +63,7 @@ function createParams(product){
 		.each(function(index){
 			for(var cont = 0; cont < cart.length; cont++){
 				if($(this).val().substring(0,1) == cart[cont].id){
-					$(this).attr('value',cart[index].id + ":" + cart[index].qtd);
+					$(this).attr('value',cart[index].id + ":" + cart[index].amount);
 					bool = false;
 				}else{
 					bool = true;
@@ -80,44 +79,71 @@ function createParams(product){
 		.append(
 			$('<input>')
 			.attr('type','hidden')
-			.attr('value',cart[cart.length - 1].id+':'+cart[cart.length - 1].qtd)
+			.attr('value',cart[cart.length - 1].id+':'+cart[cart.length - 1].amount)
 			.attr('name','product')
 		);
 	}		
 }
 
 function populateCart(){
+	var totalAmount = 0;
+	var totalCost = 0;
+	
 	if($('#cartFoot').css('display') == 'none'){
 		$('#cartFoot').css('display','');
 	}
 	
 	$('#cartBody').remove();
+	$('#cartTable')
+	.append(
+		$('<tbody>')
+		.attr('id','cartBody')
+	);
 	
-	/* TODO 
-	 * 
-	 * Preencher carrinho
-	 *
-	*/
 	for(var cont = 0; cont < cart.length; cont++){
+		totalAmount += parseInt(cart[cont].amount);
+		totalCost += parseFloat(cart[cont].cost * cart[cont].amount);
+		
 		$('#cartBody')
 		.append(
 			$('<tr>')
 			.attr('id',cart[cont].id)
 			.append(
 				$('<td>').text(cart[cont].name)				
+			)			
+			.append(
+				$('<td>')
+				.attr('value',cart[cont].cost)
+				.text('R$ '+parseFloat(cart[cont].cost).toFixed(2))
 			)
 			.append(
 				$('<td>')
-				.attr('value',cart[cont].qtd)
-				.text(cart[cont].qtd)
+				.attr('value',cart[cont].amount)
+				.text(cart[cont].amount)
 			)
 			.append(
 				$('<td>')
 				.attr('value',cart[cont].cost)
-				.text(parseFloat(cart[cont].cost).toFixed(2))
+				.text('R$ '+parseFloat((cart[cont].cost) * cart[cont].amount).toFixed(2))
 			)
-		);
+			.append(
+				$('<td>')
+				.append(
+					$('<a>')
+					.attr('href','javascript:removeProduct();')
+					.text('Remover')
+				)
+			)
+		);		
 	}
+	$('#totalAmount')
+	.text(totalAmount);
+	
+	$('#totalCost')
+	.text('R$ '+totalCost.toFixed(2));
+	
+	$('#total')
+	.attr('value',totalCost)
 }
 
 /*
