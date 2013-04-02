@@ -19,6 +19,6 @@ class Orders {
 	}
 		
 	static mapping = {
-		version false
+		version true
 	}
 }

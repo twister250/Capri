@@ -1,5 +1,7 @@
 package capri
 
+import java.awt.geom.Arc2D.Float;
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class OrdersController {
@@ -15,12 +17,6 @@ class OrdersController {
         [ordersInstanceList: Orders.list(params), ordersInstanceTotal: Orders.count()]
     }
 	
-	/*
-    def create() {
-        [ordersInstance: new Orders(params)]
-    } 
-	*/
-	
 	def create(String phone) {
 		[ordersInstance: new Orders(params)]
 		if(!phone.equals(null)){
@@ -35,8 +31,7 @@ class OrdersController {
 		}
 	}	
 
-    def save() {
-        
+    def save() {        
 		params.date = new Date()
 		params.client = Client.findById(params.clientId)		
 
@@ -93,7 +88,6 @@ class OrdersController {
         def order = Orders.get(id)
 		def client = Client.get(order.client.id)
 		def items = Items.findAllByOrder(order)
-		print items
 		def products = Product.list(sort: "category")
         if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
@@ -105,9 +99,21 @@ class OrdersController {
     }
 
     def update(Long id, Long version) {
-        def order = Orders.get(id)
-		def client = Client.findById(order.client.id)
+		def order = Orders.get(id)
+		def client = Client.findById(params.clientId)
+		def items = Items.findAllByOrder(order)
+		def product = null
+		def amount = null
+		def total = params.total
 		
+		print "total: "+total	
+		
+		items?.each{
+			it.delete(flush: true)
+		}
+		
+		print "Params Update: "+params		
+				
         if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
@@ -123,8 +129,25 @@ class OrdersController {
                 return
             }
         }
-
-        order.properties = params
+		
+		if(!(params.product instanceof Object[])){
+			product = Product.get(params.product.split(":",0)[0])
+			amount = params.product.split(":")[1]
+			items = new Items(order: order, product: product, amount: amount)
+			order.addToItems(items)			
+		}else{
+			product = []
+			amount = []			
+			params.product.eachWithIndex{ obj, index ->
+				product[index] = Product.get(obj[0])
+				amount[index] = obj[2]
+				items = new Items(order: order, product: product[index], amount: amount[index])
+				order.addToItems(items)
+				items.save()
+			}
+		}
+						
+		order.setTotal(total.toFloat())
 
         if (!order.save(flush: true)) {
             render(view: "edit", model: [order: order, client: client])

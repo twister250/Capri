@@ -24,13 +24,13 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="name" title="${message(code: 'product.name.label', default: 'Name')}" />
+						<g:sortableColumn property="name" title="${message(code: 'product.name.label', default: 'Nome')}" />
 					
-						<g:sortableColumn property="description" title="${message(code: 'product.description.label', default: 'Description')}" />
+						<g:sortableColumn property="description" title="${message(code: 'product.description.label', default: 'Descrição')}" />
 					
-						<g:sortableColumn property="cost" title="${message(code: 'product.cost.label', default: 'Cost')}" />
+						<g:sortableColumn property="cost" title="${message(code: 'product.cost.label', default: 'Valor')}" />
 					
-						<th><g:message code="product.category.label" default="Category" /></th>
+						<g:sortableColumn property="category" title="${message(code: 'product.cost.label', default: 'Categoria')}" />
 					
 					</tr>
 				</thead>
@@ -44,7 +44,7 @@
 					
 						<td>${fieldValue(bean: productInstance, field: "cost")}</td>
 					
-						<td>${fieldValue(bean: productInstance, field: "category")}</td>
+						<td>${fieldValue(bean: productInstance, field: "category.name")}</td>
 					
 					</tr>
 				</g:each>

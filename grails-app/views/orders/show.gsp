@@ -55,7 +55,7 @@
 				<g:if test="${ordersInstance?.total}">
 				<li class="fieldcontain">
 					<span id="total-label" class="property-label"><g:message code="orders.total.label" default="Total: " /></span>					
-					<span class="property-value" aria-labelledby="total-label"><g:fieldValue bean="${ordersInstance}" field="total"/></span>					
+					<span class="property-value" aria-labelledby="total-label">R$ <g:fieldValue bean="${ordersInstance}" field="total"/></span>					
 				</li>
 				</g:if>
 			

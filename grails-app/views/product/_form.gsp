@@ -31,6 +31,6 @@
 		<g:message code="product.category.label" default="Category" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="category" name="category.id" from="${capri.Category.list()}" optionKey="id" required="" value="${productInstance?.category?.id}" class="many-to-one"/>
+	<g:select id="category" name="category.id" from="${capri.Category.list()}" optionKey="id" optionValue="name" required="" value="${productInstance?.category?.id}" class="many-to-one"/>
 </div>
 
