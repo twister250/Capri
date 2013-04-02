@@ -82,9 +82,25 @@
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
+		<div id="status" role="complementary" class="nav">
+			<h1>Clientes</h1>
 			<ul>
+				<li><a class="create" href="${createLink(uri: '/client/create')}">Cadastrar</a></li>
+				<li><a class="list" href="${createLink(uri: '/client/list')}">Consultar</a></li>				
+			</ul>
+			<h1>Pedidos</h1>
+			<ul>
+				<li><a class="create" href="${createLink(uri: '/orders/create')}">Cadastrar</a></li>
+				<li><a class="list" href="${createLink(uri: '/orders/list')}">Consultar</a></li>				
+			</ul>
+			<h1>Produtos</h1>
+			<ul>
+				<li><a class="create" href="${createLink(uri: '/product/create')}">Cadastrar</a></li>
+				<li><a class="list" href="${createLink(uri: '/product/list')}">Consultar</a></li>
+				<li><a class="list" href="${createLink(uri: '/category/list')}">Tipos de Produtos</a></li>
+			</ul>
+			
+				<%--
 				<li>App version: <g:meta name="app.version"/></li>
 				<li>Grails version: <g:meta name="app.grails.version"/></li>
 				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
@@ -94,13 +110,15 @@
 				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
 				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
 				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
+				--%>
+			<%--
 			<h1>Installed Plugins</h1>
 			<ul>
 				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
 					<li>${plugin.name} - ${plugin.version}</li>
 				</g:each>
 			</ul>
+			--%>
 		</div>
 		<div id="page-body" role="main">
 			<h1>Welcome to Grails</h1>
