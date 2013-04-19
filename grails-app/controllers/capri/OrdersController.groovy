@@ -25,8 +25,11 @@ class OrdersController {
 				redirect(action: "create", controller: "client")
 			}else{
 				def products = Product.list(sort: "category")
-				def items = new Items()
-				render(view: "create", model: [client: client, items: items, products: products])
+				products.each {
+					print it
+				}
+				def category = Category.list()
+				render(view: "create", model: [client: client, category: category, products: products])
 			}
 		}
 	}	

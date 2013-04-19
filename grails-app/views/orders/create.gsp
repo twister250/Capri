@@ -64,55 +64,39 @@
 				<g:form action="save">
 					<fieldset class="form">
 						<g:render template="form"/>
-					</fieldset>						
-				
-					<h1>Pizzas</h1>
-					<g:each in="${products}" var="product" status="i">
-						<g:if test="${product.category.type == 'Pizza'}">
-							<fieldset class="form" style="padding: 0;">
-								<h1 onclick="show('category${product.category.id}')" style="cursor: pointer; border: outset 2px; background-color: #efefef; width: 250px; text-align: center;">${product.category.name}</h1>
-								<div id="category${product.category.id}" style="display: none;">
-									<div id="div">
-										<div id="pizza${product.id}" class="fieldcontain pizzas" onclick="show('size${product.id}')">
-											<dl>
-												<dt>
-													<strong>${product.name}</strong><span>R$ ${product.cost}</span>
-												</dt>
-												<dd>${product.description}</dd>
-											</dl>
-										</div>
-										<div id="size${product.id}" style="width: 100px; height: 50px; margin-left: 30px; display: none;">
-											<span class="span" onclick="addToCart('${i}','${product.category.type.toLowerCase()}')">Inteira</span>
-											<span class="span" onclick="teste('${i}')">1/2</span>
-										</div>
-										<div id="half${product.id}" style="width: 250px; height: 50px; margin: 3px 0px 0px 10px; display: none;">
-											<span class="span2">Escolha a segunda opção !</span>
-										</div>
-									</div>
-								</div>						
-							</fieldset>
-						</g:if>					
-					</g:each>
+					</fieldset>
 					
-					<h1>Bebidas</h1>
-					<g:each in="${products}" var="product" status="i">
-						<g:if test="${product.category.type == 'Bebida'}">
+					<h1>Pizzas</h1>
+					
+					<g:each in="${category}" var="c">
+						<h1 onclick="show('category${c.id}')" style="cursor: pointer; border: outset 2px; background-color: #efefef; width: 250px; text-align: center;">${c.name}</h1>
+						<div id="category${c.id}" style="display: none;">
 							<fieldset class="form" style="padding: 0;">
-								<h1 onclick="show('category${product.category.id}')" style="cursor: pointer; border: outset 2px; background-color: #efefef; width: 250px; text-align: center;">${product.category.name}</h1>
-								<div id="category${product.category.id}" style="display: none;">
-									<div id="div">
-										<div id="bebida${product.id}" class="fieldcontain pizzas" onclick="addToCart('${i}','${product.category.type.toLowerCase()}')">
-											<dl>
-												<dt>
-													<strong>${product.name}</strong><span>R$ ${product.cost}</span>
-												</dt>
-												<dd>${product.description}</dd>
-											</dl>
-										</div>
-									</div>
-								</div>
+								<g:each in="${products}" var="p" status="i">
+									<g:if test="${p.category.id.equals(c.id)}">
+										<div id="div">
+											<div id="pizza${p.id}" class="fieldcontain pizzas" 
+											<g:if test="${c.type == 'Pizza' }"> onclick="show('size${p.id}')"</g:if>
+											<g:else>onclick="addToCart('${i}','${c.type.toLowerCase()}')"</g:else>>
+												<dl>
+													<dt>
+														<strong>${p.name}</strong><span>R$ ${p.cost}</span>
+													</dt>
+													<dd>${p.description}</dd>
+												</dl>
+											</div>
+											<div id="size${p.id}" style="width: 100px; height: 50px; margin-left: 30px; display: none;">
+												<span class="span" onclick="addToCart('${i}','${c.type.toLowerCase()}')">Inteira</span>
+												<span class="span" onclick="teste('${i}')">1/2</span>
+											</div>
+											<div id="half${p.id}" style="width: 250px; height: 50px; margin: 3px 0px 0px 10px; display: none;">
+												<span class="span2">Escolha a segunda opção !</span>
+											</div>
+										</div>									
+									</g:if>
+								</g:each>
 							</fieldset>
-						</g:if>
+						</div>						
 					</g:each>
 					
 					<br><br>
@@ -159,45 +143,5 @@
 </html>
 
 
-<%--
-<%@ page import="capri.Orders" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Orders')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#create-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="create-orders" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${ordersInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${ordersInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form action="save" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
-		</div>
-	</body>
-</html>
- --%>
+
  
