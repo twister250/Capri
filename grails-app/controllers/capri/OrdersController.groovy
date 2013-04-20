@@ -88,14 +88,15 @@ class OrdersController {
         def order = Orders.get(id)
 		def client = Client.get(order.client.id)
 		def items = Items.findAllByOrder(order)
-		def products = Product.list(sort: "category")
+		def products = Product.list(sort: "category")		
+		def category = Category.list()
         if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
             return
         }
 
-        [order: order, client: client, items: items, products: products]
+        [order: order, client: client, items: items, products: products, category: category]
     }
 
     def update(Long id, Long version) {
