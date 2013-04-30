@@ -4,18 +4,20 @@
 
 <div class="fieldcontain ${hasErrors(bean: categoryInstance, field: 'name', 'error')} required">
 	<label for="name">
-		<g:message code="category.name.label" default="Name" />
-		<span class="required-indicator">*</span>
+		<g:message code="category.name.label" default="Nome:" />		
 	</label>
 	<g:textField name="name" required="" value="${categoryInstance?.name}"/>
+	<span class="required-indicator">* Preenchimento obrigatório</span>
 </div>
 
+<%--
 <div class="fieldcontain ${hasErrors(bean: categoryInstance, field: 'product', 'error')} ">
 	<label for="product">
-		<g:message code="category.product.label" default="Product" />
+		<g:message code="category.product.label" default="Produto:" />
 		
 	</label>
-	
+
+
 <ul class="one-to-many">
 <g:each in="${categoryInstance?.product?}" var="p">
     <li><g:link controller="product" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
@@ -26,12 +28,13 @@
 </ul>
 
 </div>
+--%>
 
 <div class="fieldcontain ${hasErrors(bean: categoryInstance, field: 'type', 'error')} ">
 	<label for="type">
-		<g:message code="category.type.label" default="Type" />
-		
+		<g:message code="category.type.label" default="Tipo de Produto:" />		
 	</label>
-	<g:textField name="type" value="${categoryInstance?.type}"/>
+	<%-- <g:textField name="type" value="${categoryInstance?.type}"/>  --%>
+	<g:select name="type" from="${['Pizza','Bebida']}"/>
 </div>
 

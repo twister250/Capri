@@ -11,13 +11,13 @@
 		<a href="#show-category" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
+				<li><g:link class="list" action="list">Listar Categorias</g:link></li>
+				<li><g:link class="create" action="create">Adicionar Categoria</g:link></li>
 			</ul>
 		</div>
 		<div id="show-category" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Categoria</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,30 +25,28 @@
 			
 				<g:if test="${categoryInstance?.name}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="category.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${categoryInstance}" field="name"/></span>
-					
+					<span id="name-label" class="property-label"><g:message code="category.name.label" default="Nome:" /></span>					
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${categoryInstance}" field="name"/></span>					
 				</li>
 				</g:if>
-			
+				
+				<%--
 				<g:if test="${categoryInstance?.product}">
 				<li class="fieldcontain">
-					<span id="product-label" class="property-label"><g:message code="category.product.label" default="Product" /></span>
-					
-						<g:each in="${categoryInstance.product}" var="p">
-						<span class="property-value" aria-labelledby="product-label"><g:link controller="product" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
+					<span id="product-label" class="property-label"><g:message code="category.product.label" default="Product" /></span>					
+					<g:each in="${categoryInstance.product}" var="p">
+						<span class="property-value" aria-labelledby="product-label">
+							<g:link controller="product" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link>
+						</span>
+					</g:each>					
 				</li>
 				</g:if>
+				--%>
 			
 				<g:if test="${categoryInstance?.type}">
 				<li class="fieldcontain">
-					<span id="type-label" class="property-label"><g:message code="category.type.label" default="Type" /></span>
-					
-						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${categoryInstance}" field="type"/></span>
-					
+					<span id="type-label" class="property-label"><g:message code="category.type.label" default="Tipo:" /></span>					
+					<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${categoryInstance}" field="type"/></span>					
 				</li>
 				</g:if>
 			
