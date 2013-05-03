@@ -62,7 +62,7 @@ function createParams(product){
 		.children('input[name="product"]')
 		.each(function(index){
 			for(var cont = 0; cont < cart.length; cont++){
-				if($(this).val().substring(0,1) == cart[cont].id){
+				if($(this).val().split(":",1) == cart[cont].id){
 					$(this).attr('value',cart[index].id + ":" + cart[index].amount);
 					bool = false;
 				}else{
