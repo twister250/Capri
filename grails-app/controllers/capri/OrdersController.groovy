@@ -142,14 +142,14 @@ class OrdersController {
 			product = []
 			amount = []			
 			params.product.eachWithIndex{ obj, index ->
-				product[index] = Product.get(obj[0])
-				amount[index] = obj[2]
+				product[index] = Product.get(obj.split(":")[0])
+				amount[index] = obj.split(":")[1]
 				items = new Items(order: order, product: product[index], amount: amount[index])
 				order.addToItems(items)
 				items.save()
 			}
 		}
-						
+								
 		order.setTotal(total.toFloat())
 
         if (!order.save(flush: true)) {

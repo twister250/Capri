@@ -1,4 +1,3 @@
-
 <%@ page import="capri.Orders" %>
 <!DOCTYPE html>
 <html>
@@ -11,13 +10,13 @@
 		<a href="#show-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
+				<li><g:link class="list" action="list">Listar Pedidos</g:link></li>
+				<li><g:link class="create" action="create">Adicionar Pedido</g:link></li>
 			</ul>
 		</div>
 		<div id="show-orders" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Pedido</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -51,24 +50,65 @@
 					<span class="property-value" aria-labelledby="date-label"><g:formatDate date="${ordersInstance?.date}"/></span>					
 				</li>
 				</g:if>
-			
+				
+				<%--
 				<g:if test="${ordersInstance?.total}">
 				<li class="fieldcontain">
 					<span id="total-label" class="property-label"><g:message code="orders.total.label" default="Total: " /></span>					
 					<span class="property-value" aria-labelledby="total-label">R$ <g:fieldValue bean="${ordersInstance}" field="total"/></span>					
 				</li>
 				</g:if>
-			
-				<g:if test="${ordersInstance?.items}">
+				
+				
 				<li class="fieldcontain">
 					<span id="items-label" class="property-label"><g:message code="orders.items.label" default="Items: " /></span>
 					<g:each in="${ordersInstance.items}" var="item">
 						<span class="property-value" aria-labelledby="items-label">${item?.amount} - ${item?.product.name}</span>
 					</g:each>
 				</li>
-				</g:if>
-			
+				--%>
 			</ol>
+			
+			<h1>Itens do Pedido</h1>
+			
+			<fieldset>
+				<g:if test="${ordersInstance?.items}">
+					<table>
+						<thead>
+							<tr>
+								<g:sortableColumn property="item" title="Produto"/>
+								<g:sortableColumn property="type" title="Tipo"/>
+								<g:sortableColumn property="cost" title="Preço Unitário"/>
+								<g:sortableColumn property="amount" title="Quantidade"/>							
+								<g:sortableColumn property="subtotal" title="Sub-Total"/>
+							</tr>
+						</thead>
+						<tbody>
+							<g:set var="totalamount" value="${0}"/>
+							<g:each in="${ordersInstance.items}" var="item">							
+								<tr>									
+									<td>${item?.product.name}</td>
+									<td>${item?.product.category.type}</td>
+									<td>R$ ${item?.product.cost}</td>
+									<td>${item?.amount}</td>						
+									<td>R$ ${item?.product.cost * item?.amount}</td>
+								</tr>
+								<g:set var="totalamount" value="${totalamount = (totalamount + item?.amount)}"/>
+							</g:each>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th></th>
+								<th></th>
+								<th>${totalamount}</th>
+								<th>R$ ${ordersInstance.total}</th>
+							</tr>
+						</tfoot>
+					</table>				
+				</g:if>
+			</fieldset>
+			
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${ordersInstance?.id}" />
