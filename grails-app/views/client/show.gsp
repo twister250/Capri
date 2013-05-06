@@ -11,13 +11,13 @@
 		<a href="#show-client" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
+				<li><g:link class="list" action="list">Consultar Cliente</g:link></li>
+				<li><g:link class="create" action="create">Cadastrar Cliente</g:link></li>
 			</ul>
 		</div>
 		<div id="show-client" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Cliente</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,7 +25,7 @@
 			
 				<g:if test="${clientInstance?.name}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="client.name.label" default="Name" /></span>
+					<span id="name-label" class="property-label"><g:message code="client.name.label" default="Nome:" /></span>
 					
 						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${clientInstance}" field="name"/></span>
 					
@@ -34,7 +34,7 @@
 			
 				<g:if test="${clientInstance?.phone}">
 				<li class="fieldcontain">
-					<span id="phone-label" class="property-label"><g:message code="client.phone.label" default="Phone" /></span>
+					<span id="phone-label" class="property-label"><g:message code="client.phone.label" default="Telefone:" /></span>
 					
 						<span class="property-value" aria-labelledby="phone-label"><g:fieldValue bean="${clientInstance}" field="phone"/></span>
 					
@@ -43,7 +43,7 @@
 			
 				<g:if test="${clientInstance?.address}">
 				<li class="fieldcontain">
-					<span id="address-label" class="property-label"><g:message code="client.address.label" default="Address" /></span>
+					<span id="address-label" class="property-label"><g:message code="client.address.label" default="Endereço:" /></span>
 					
 						<span class="property-value" aria-labelledby="address-label"><g:fieldValue bean="${clientInstance}" field="address"/></span>
 					
@@ -52,7 +52,7 @@
 			
 				<g:if test="${clientInstance?.cpf}">
 				<li class="fieldcontain">
-					<span id="cpf-label" class="property-label"><g:message code="client.cpf.label" default="Cpf" /></span>
+					<span id="cpf-label" class="property-label"><g:message code="client.cpf.label" default="CPF:" /></span>
 					
 						<span class="property-value" aria-labelledby="cpf-label"><g:fieldValue bean="${clientInstance}" field="cpf"/></span>
 					
@@ -61,7 +61,7 @@
 			
 				<g:if test="${clientInstance?.active}">
 				<li class="fieldcontain">
-					<span id="active-label" class="property-label"><g:message code="client.active.label" default="Active" /></span>
+					<span id="active-label" class="property-label"><g:message code="client.active.label" default="Ativo:" /></span>
 					
 						<span class="property-value" aria-labelledby="active-label"><g:formatBoolean boolean="${clientInstance?.active}" /></span>
 					

@@ -12,11 +12,11 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="create">Cadastrar Cliente</g:link></li>
 			</ul>
 		</div>
 		<div id="list-client" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>Lista de Clientes</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -24,15 +24,15 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="name" title="${message(code: 'client.name.label', default: 'Name')}" />
+						<g:sortableColumn property="name" title="${message(code: 'client.name.label', default: 'Nome')}" />
 					
-						<g:sortableColumn property="phone" title="${message(code: 'client.phone.label', default: 'Phone')}" />
+						<g:sortableColumn property="phone" title="${message(code: 'client.phone.label', default: 'Telefone')}" />
 					
-						<g:sortableColumn property="address" title="${message(code: 'client.address.label', default: 'Address')}" />
+						<g:sortableColumn property="address" title="${message(code: 'client.address.label', default: 'Endereço')}" />
 					
-						<g:sortableColumn property="cpf" title="${message(code: 'client.cpf.label', default: 'Cpf')}" />
+						<g:sortableColumn property="cpf" title="${message(code: 'client.cpf.label', default: 'CPF')}" />
 					
-						<g:sortableColumn property="active" title="${message(code: 'client.active.label', default: 'Active')}" />
+						<g:sortableColumn property="active" title="${message(code: 'client.active.label', default: 'Ativo')}" />
 					
 					</tr>
 				</thead>
