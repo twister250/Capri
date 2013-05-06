@@ -11,7 +11,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}">Home</a></li>
-				<li><g:link class="list" action="list">Consultar Cliente</g:link></li>
+				<li><g:link class="list" action="list">Listar Clientes</g:link></li>
 				<li><g:link class="create" action="create">Cadastrar Cliente</g:link></li>
 			</ul>
 		</div>
