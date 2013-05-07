@@ -12,12 +12,12 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Listar Produtos</g:link></li>
+				<li><g:link class="create" action="create">Adicionar Produto</g:link></li>
 			</ul>
 		</div>
 		<div id="show-product" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Produto</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,7 +25,7 @@
 			
 				<g:if test="${productInstance?.name}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="product.name.label" default="Name" /></span>
+					<span id="name-label" class="property-label"><g:message code="product.name.label" default="Nome:" /></span>
 					
 						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${productInstance}" field="name"/></span>
 					
@@ -34,7 +34,7 @@
 			
 				<g:if test="${productInstance?.description}">
 				<li class="fieldcontain">
-					<span id="description-label" class="property-label"><g:message code="product.description.label" default="Description" /></span>
+					<span id="description-label" class="property-label"><g:message code="product.description.label" default="Descrição:" /></span>
 					
 						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${productInstance}" field="description"/></span>
 					
@@ -43,18 +43,18 @@
 			
 				<g:if test="${productInstance?.cost}">
 				<li class="fieldcontain">
-					<span id="cost-label" class="property-label"><g:message code="product.cost.label" default="Cost" /></span>
+					<span id="cost-label" class="property-label"><g:message code="product.cost.label" default="Valor:" /></span>
 					
-						<span class="property-value" aria-labelledby="cost-label"><g:fieldValue bean="${productInstance}" field="cost"/></span>
+						<span class="property-value" aria-labelledby="cost-label">R$ <g:fieldValue bean="${productInstance}" field="cost"/></span>
 					
 				</li>
 				</g:if>
 			
 				<g:if test="${productInstance?.category}">
 				<li class="fieldcontain">
-					<span id="category-label" class="property-label"><g:message code="product.category.label" default="Category" /></span>
+					<span id="category-label" class="property-label"><g:message code="product.category.label" default="Categoria:" /></span>
 					
-						<span class="property-value" aria-labelledby="category-label"><g:link controller="category" action="show" id="${productInstance?.category?.id}">${productInstance?.category?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="category-label"><g:link controller="category" action="show" id="${productInstance?.category?.id}">${productInstance?.category?.name}</g:link></span>
 					
 				</li>
 				</g:if>
