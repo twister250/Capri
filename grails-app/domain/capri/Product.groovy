@@ -15,7 +15,7 @@ class Product {
     static constraints = {
 		name nullable: false, blank: false
 		description nullable: false, blank: false
-		cost nullable: false, blank: false
+		cost nullable: false, blank: false, scale: 2
 	}
 		
 	static mapping = {
