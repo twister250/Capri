@@ -77,7 +77,7 @@
 										<g:if test="${p.category.id.equals(c.id)}">
 											<div id="div">
 												<div id="pizza${p.id}" class="fieldcontain pizzas" 
-												<g:if test="${c.type == 'Pizza' }"> onclick="show('size${p.id}')"</g:if>
+												<g:if test="${c.type == 'Pizza' }"> onclick="show('size${p.id}','${i}','${c.type.toLowerCase()}')"</g:if>
 												<g:else>onclick="addToCart('${i}','${c.type.toLowerCase()}')"</g:else>>
 													<dl>
 														<dt>
@@ -88,7 +88,7 @@
 												</div>
 												<div id="size${p.id}" style="width: 100px; height: 50px; margin-left: 30px; display: none;">
 													<span class="span" onclick="addToCart('${i}','${c.type.toLowerCase()}')">Inteira</span>
-													<span class="span" onclick="teste('${i}')">1/2</span>
+													<span class="span" onclick="addToCart('${i}','${c.type.toLowerCase()}','${true}','size${p.id}')">1/2</span>
 												</div>
 												<div id="half${p.id}" style="width: 250px; height: 50px; margin: 3px 0px 0px 10px; display: none;">
 													<span class="span2">Escolha a segunda opção !</span>
