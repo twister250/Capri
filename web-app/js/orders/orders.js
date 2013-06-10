@@ -56,7 +56,10 @@ function addToCart(i, product, half, objSlide){
 	
 	createParams(product);
 	
-	populateCart();	
+	populateCart();
+	
+	if(halfPizza)
+		alert("Selecione outro sabor.");
 	
 }
 
