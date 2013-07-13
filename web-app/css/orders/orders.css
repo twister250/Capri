@@ -64,4 +64,44 @@ dd{
 	background-color: #48802C;
 }
 
+#tabs_list{
+	margin: 0 20px;	
+}
 
+#tabs{
+	list-style: none outside none;
+	text-align: center;
+	border-bottom: 1px solid #cccccc;
+}
+
+#tabs li{
+	display: inline;
+	padding: 10px;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #ffffff;
+	padding-bottom: 0; 
+}
+
+#tabs li.active{
+	font-weight: bold;
+}
+
+#tabs li a{	
+	text-decoration: none;	
+}
+
+#tabs_content{
+	margin: 0 20px;
+	padding: 20px;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+.category{display: none;}
+
+.productdescription{
+	font-size: 12px;
+}

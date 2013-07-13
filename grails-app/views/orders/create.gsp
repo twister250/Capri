@@ -9,7 +9,7 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'orders.css')}" type="text/css">
 		<r:require module="jquery-ui"/>
-		<g:javascript src="/orders/orders.js"/>	
+		<g:javascript src="/orders/orders.js"/>		
 	</head>
 		
 		<r:script>
@@ -66,6 +66,38 @@
 						<g:render template="form"/>
 					</fieldset>
 					
+					<div id="tabs_list">
+						<ul id="tabs">
+							<g:each in="${category}" var="c">
+								<li><a href="#category${c.id}">${c.name}</a></li>
+							</g:each>							
+						</ul>
+					</div>
+					<div id="tabs_content">
+						<g:each in="${category}" var="c">
+							<div id="category${c.id}" class="category">
+								<table>
+									<thead>
+										<th>Produto</th><th>Descrição</th><th>Valor</th><th>1/2</th>
+									</thead>
+									<tbody>
+										<g:each in="${products}" var="p">
+											<g:if test="${c.id == p.categoryId}">
+												<tr>
+													<td>${p.name}</td>
+													<td class="productdescription">${p.description}</td>
+													<td>R$ ${p.cost}</td>
+													<td><g:checkBox name="half"/></td>
+												</tr>
+											</g:if>											
+										</g:each>
+									</tbody>
+								</table>
+							</div>
+						</g:each>
+					</div>
+					
+					<%--
 					<h1>Pizzas</h1>
 					
 					<g:each in="${category}" var="c">
@@ -131,6 +163,8 @@
 					
 					<br><br>					
 					
+					
+					
 					<h1>Pedido</h1>
 					<fieldset style="padding: 20px 0 30px;">										
 						<table id="cartTable">
@@ -162,12 +196,11 @@
 						<g:submitButton name="create" class="save" value="Criar Pedido" />
 					</fieldset>
 					
+					--%>
+					
 				</g:form>
 			</g:else>
 		</div>
-	</body>
+		<g:javascript src="/orders/tab.js"/>
+	</body>	
 </html>
-
-
-
- 
