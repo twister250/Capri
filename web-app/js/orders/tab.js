@@ -20,3 +20,15 @@ $(document).ready(function(){
         return false;
     });
 });
+
+$(document).ready(function(){
+	$('input[type="checkbox"][name="half"]').change(function() {
+	    if(this.checked) {
+	    	$('input[type="checkbox"][name="mini"]').attr('disabled','true');
+	    	$('input[id*="spinner"]').attr('disabled','true');
+	    }else{
+	    	$('input[type="checkbox"][name="mini"]').removeAttr('disabled');
+	    	$('input[id*="spinner"]').removeAttr('disabled');
+	    }
+	});	
+});

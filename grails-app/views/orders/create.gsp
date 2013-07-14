@@ -8,8 +8,10 @@
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Pedidos')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'orders.css')}" type="text/css">
-		<r:require module="jquery-ui"/>
-		<g:javascript src="/orders/orders.js"/>		
+		<%--<r:require module="jquery-ui"/>--%>		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css">
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	</head>
 		
 		<r:script>
@@ -78,7 +80,13 @@
 							<div id="category${c.id}" class="category">
 								<table>
 									<thead>
-										<th>Produto</th><th>Descrição</th><th>Valor</th><th>1/2</th>
+										<th class="left">Produto</th>
+										<th class="left">Descrição</th>
+										<th class="center">Valor</th>
+										<th class="center">Broto</th>
+										<th class="center">1/2</th>
+										<th class="center">Quantidade</th>
+										<th class="center">Carrinho</th>
 									</thead>
 									<tbody>
 										<g:each in="${products}" var="p">
@@ -86,8 +94,11 @@
 												<tr>
 													<td>${p.name}</td>
 													<td class="productdescription">${p.description}</td>
-													<td>R$ ${p.cost}</td>
-													<td><g:checkBox name="half"/></td>
+													<td class="center" style="width: 65px;">R$ ${p.cost}</td>
+													<td class="center"><g:checkBox name="mini" /></td>
+													<td class="center"><g:checkBox name="half" /></td>
+													<td class="center"><input id="spinner${p.id}" name="value"/></td>
+													<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
 												</tr>
 											</g:if>											
 										</g:each>
@@ -97,6 +108,37 @@
 						</g:each>
 					</div>
 					
+					<fieldset style="padding: 20px 0 30px;">
+						<table id="cartTable">
+							<thead id="cartHead">
+								<tr>
+									<th>Produto</th><th>Unidade</th><th>Quantidade</th><th>Subtotal</th><th>Remover Produto</th>
+								</tr>
+							</thead>
+							<tbody id="cartBody">
+							</tbody>
+							<tfoot id="cartFoot">
+								<tr>
+									<th>Total</th>
+									<th></th>
+									<th id="totalAmount"></th>
+									<th id="totalCost"></th>
+									<th></th>
+								</tr>							
+							</tfoot>
+						</table>											
+					</fieldset>
+																								
+					<div id="cart">
+						<input type="hidden" id="total" name="total"/>
+					</div>
+				
+					<fieldset class="buttons" style="margin-top: 50px;">
+						<span class="spanCart">Visualizar</span>						
+						<span class="spanOrder">Voltar para Pedido</span>
+						<g:submitButton name="create" class="save" value="Salvar" style="display: none;"/>
+					</fieldset>
+										
 					<%--
 					<h1>Pizzas</h1>
 					
@@ -202,5 +244,9 @@
 			</g:else>
 		</div>
 		<g:javascript src="/orders/tab.js"/>
+		<g:javascript src="/orders/orders.js"/>
+		<script type="text/javascript">		
+			$('input[id*="spinner"]').spinner({min: 1});
+		</script>
 	</body>	
 </html>

@@ -26,12 +26,24 @@ strong{
 	vertical-align: sub;
 }
 
-span{
-	float: right;
-	margin-right: 7px;
-	color: #48802C;
+.spanCart, .spanOrder{
+	float: left;
+	color: #777777;
 	vertical-align: sub;
-	padding: 4px;
+	padding: 5px;
+	cursor: pointer;
+	display: none;
+	background-image: url("../../images/skin/cart.png");
+	background-repeat: no-repeat;
+	text-indent: 30px;
+}
+
+.spanOrder{ float: right; margin: 0 20px;}
+
+.spanCart:hover, .spanCart:focus, .spanOrder:hover, .spanOrder:focus{
+	color: #ffffff;
+	border-radius: 5px;
+	background-color: #aaaaaa;
 }
 
 dd{
@@ -45,23 +57,6 @@ dd{
 	width: 254px;
 	height: 130px;
 	margin-left: 25px;	
-}
-
-.span{
-	margin-top: 3px;
-	cursor: pointer;	
-}
-.span:hover, .span:focus{
-	color: #ffffff;
-	border-radius: 3px;
-	background-color: #48802C;
-}
-
-.span2{
-	margin-top: 4px;
-	color: #ffffff;
-	border-radius: 3px;
-	background-color: #48802C;
 }
 
 #tabs_list{
@@ -79,18 +74,21 @@ dd{
 	padding: 10px;
 	border-top: 1px solid #cccccc;
 	border-left: 1px solid #cccccc;
-	border-right: 1px solid #cccccc;
-	border-bottom: 1px solid #ffffff;
+	border-right: 1px solid #cccccc;	
 	padding-bottom: 0; 
 }
 
 #tabs li.active{
 	font-weight: bold;
+	border-bottom: 1px solid #eeeeee;
+	background-color: #eeeeee;	
 }
 
 #tabs li a{	
 	text-decoration: none;	
 }
+
+#tabs li:hover {background-color: #eeeeee;}
 
 #tabs_content{
 	margin: 0 20px;
@@ -98,10 +96,40 @@ dd{
 	border-left: 1px solid #cccccc;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
+	background-color: #eeeeee;
 }
 
-.category{display: none;}
+.category{display: none; background-color: #ffffff;}
+
+.category td{vertical-align: middle; border-bottom: 1px solid #cccccc;}
+
+.category tr > td:first-child, tr > th:first-child{
+	border-left: 1px solid #cccccc;
+	padding-left: 5px;
+}
+
+.category tr > td:last-child, tr > th:last-child{
+	border-right: 1px solid #cccccc;
+	padding-right: 0;
+}
 
 .productdescription{
 	font-size: 12px;
+	width: 350px;
+}
+
+.center span{ width: 60px; margin: 0 auto; float: none;}
+.center input{ width: 50px; margin-right: 0;}
+
+.center { text-align: center; }
+.left { text-align: left; }
+
+#cartTable {display: none;}
+#cartFoot tr {border: 1px solid #cccccc;}
+
+img.product:hover{
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	background-color: #eeeeee;
+	cursor: pointer;	
 }
