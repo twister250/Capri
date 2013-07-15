@@ -91,7 +91,8 @@ function showCart(){
 				.attr('id',cart[i].id)
 				.css('border','1px solid #cccccc')
 				.append(
-					$('<td>').text(cart[i].name)				
+					$('<td>').text(cart[i].name)
+					.css('padding-left','5px')
 				)			
 				.append(
 					$('<td>')
@@ -102,6 +103,7 @@ function showCart(){
 					$('<td>')
 					.attr('value',cart[i].amount)
 					.text(cart[i].amount)
+					.addClass('center')
 				)
 				.append(
 					$('<td>')
@@ -110,16 +112,20 @@ function showCart(){
 				)
 				.append(
 					$('<td>')
+					.css('text-align','center')
+					.css('padding-right','0')
 					.append(
 						$('<input>')
 						.attr('type','image')
-						.attr('src','../../images/skin/close.png')
+						.attr('src','../images/skin/close.png')
+						.css('border','none')
 					)
 				)
 			);
 		}
 	}
 	$('#totalAmount')
+	.css('text-align','center')
 	.text(totalAmount);
 	
 	$('#totalCost')

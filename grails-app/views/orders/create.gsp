@@ -112,7 +112,11 @@
 						<table id="cartTable">
 							<thead id="cartHead">
 								<tr>
-									<th>Produto</th><th>Unidade</th><th>Quantidade</th><th>Subtotal</th><th>Remover Produto</th>
+									<th class="left">Produto</th>
+									<th class="left">Unidade</th>
+									<th class="center">Quantidade</th>
+									<th class="left">Subtotal</th>
+									<th class="center">Remover</th>
 								</tr>
 							</thead>
 							<tbody id="cartBody">
