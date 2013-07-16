@@ -7,13 +7,14 @@ $('.product').click(function(){
 	var id = this.id;
 	var divCart = $('#cart');
 	var amount = $('#spinner'+id).val();
+	var half = $('input[id="half'+id+'"]:checked').val();
 	
-	if(amount == ""){
+	if(amount == "" && half == undefined){
 		alert("Selecione quantidade");
 		return;
 	}
-
-	products[id-1].amount = amount;
+	
+	products[id-1].amount = amount == "" ? 1/2 : amount;
 	
 	/*cart.push(products[id-1]);*/
 	if(cart[id] == undefined){
@@ -23,13 +24,13 @@ $('.product').click(function(){
 	}
 	
 	console.log(cart);
-		
+	
 	divCart.append(
-		$('<input>')
-		.attr('type','hidden')
-		.attr('value',cart[id].id+':'+cart[id].amount)
-		.attr('name','product')
-	);
+			$('<input>')
+			.attr('type','hidden')
+			.attr('value',cart[id].id+':'+cart[id].amount)
+			.attr('name','product')
+	);	
 	
 	if(cart.length > 0){
 		$('.spanCart').css('display','block');
