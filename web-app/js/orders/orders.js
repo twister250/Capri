@@ -84,7 +84,7 @@ function showCart(){
 		if(cart[i] == undefined){
 			continue;
 		}else{
-			totalAmount += parseInt(cart[i].amount);
+			totalAmount += parseFloat(cart[i].amount);
 			totalCost += parseFloat(cart[i].cost * cart[i].amount);			
 			$('#cartBody')
 			.append(

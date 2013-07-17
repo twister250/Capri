@@ -68,7 +68,7 @@ class OrdersController {
 				//print "obj split amount: "+obj.split(":")[1]
 				product[index] = Product.get(obj.split(":")[0])
 				amount[index] = obj.split(":")[1]				
-				items = new Items(order: order, product: product[index], amount: amount[index])												
+				items = new Items(order: order, product: product[index], amount: amount[index].toDouble())
 				order.addToItems(items)
 				items.save()
 			}
@@ -143,7 +143,7 @@ class OrdersController {
 			order.addToItems(items)			
 		}else{
 			product = []
-			amount = []			
+			amount = []
 			params.product.eachWithIndex{ obj, index ->
 				product[index] = Product.get(obj.split(":")[0])
 				amount[index] = obj.split(":")[1]

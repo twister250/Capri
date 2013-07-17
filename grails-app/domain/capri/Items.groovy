@@ -4,7 +4,7 @@ class Items {
 
 	int id
 	
-	float amount
+	double amount
 	
 	Product product
 	

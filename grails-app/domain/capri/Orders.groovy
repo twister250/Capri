@@ -6,7 +6,7 @@ class Orders {
 
     int id
 	Date date
-	float total
+	double total
 
 	static belongsTo = [ client: Client ]
 	
