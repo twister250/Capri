@@ -94,3 +94,10 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'capri.Account'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'capri.AccountRole'
 grails.plugins.springsecurity.authority.className = 'capri.Role'
+
+/* 20/07/2013 Leandro - Spring Security */
+
+grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugins.springsecurity.interceptUrlMap = [
+	'/*':    ['ROLE_ADMIN'],
+]

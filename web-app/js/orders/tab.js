@@ -1,4 +1,14 @@
 $(document).ready(function(){
+	
+	var active = $('#tabs li[class="active"]');
+	var firstLi = $('#tabs li').first();
+	var firstContent = $('#tabs_content div').first();
+		
+	if(active.length == 0){
+		firstLi.addClass('active');
+		firstContent.fadeIn();
+	}	
+	
     //  When user clicks on tab, this code will be executed
     $("#tabs li").click(function() {
         //  First remove class "active" from currently active tab
