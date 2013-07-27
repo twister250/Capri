@@ -36,7 +36,8 @@ class OrdersController {
 
     def save() {        
 		params.date = new Date()
-		params.client = Client.findById(params.clientId)		
+		params.client = Client.findById(params.clientId)
+		params.total = params.total.toDouble()
 
 		print params
 			
