@@ -1,7 +1,7 @@
 /target
 /target-eclipse
-*.class
 /plugins
 /.project
+/.classpath
 /*.zip
 .DS_store
