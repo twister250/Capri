@@ -3,5 +3,6 @@
 /plugins
 /.project
 /.classpath
-/*.zip
+*.zi
+*.class
 .DS_store
