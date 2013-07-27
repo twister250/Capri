@@ -2,3 +2,6 @@
 /target-eclipse
 *.class
 /plugins
+/.project
+/*.zip
+.DS_store
