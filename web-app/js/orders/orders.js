@@ -8,7 +8,7 @@ $('.product').click(function(){
 	var divCart = $('#cart');
 	var amount = $('#spinner'+id).val();
 	var half = $('input[id="half'+id+'"]:checked').val();
-	
+		
 	if(amount == "" && half == undefined){
 		alert("Selecione quantidade");
 		return;
@@ -16,7 +16,6 @@ $('.product').click(function(){
 	
 	products[id-1].amount = amount == "" ? 1/2 : amount;
 	
-	/*cart.push(products[id-1]);*/
 	if(cart[id] == undefined){
 		cart[id] = products[id-1];
 	}else{
@@ -44,8 +43,14 @@ $('span[class*="span"]').click(function(){
 	var tabsContent = $('#tabs_content');
 	var cartTable = $('#cartTable');
 	var save = $('.save');
+	var del = $('.delete');
+	var checkHalf = $('input[id*="half"]:checked');
 	
-	if(spanCart.css('display') == "block"){		
+	if(spanCart.css('display') == "block"){
+		if(checkHalf.size() % 2 != 0){
+			alert('Por favor selecione a outra metade.');
+			return;
+		}
 		tabsList.fadeOut();
 		tabsContent.fadeOut();
 		spanCart.fadeOut();
@@ -54,11 +59,13 @@ $('span[class*="span"]').click(function(){
 			spanOrder.fadeIn();
 			showCart();
 			save.fadeIn();
+			del.fadeIn();
 		},500);				
 	}else{
 		cartTable.fadeOut();
 		spanOrder.fadeOut();
 		save.fadeOut();
+		del.fadeOut();
 		setTimeout(function(){			
 			tabsList.fadeIn();
 			tabsContent.fadeIn();
@@ -80,7 +87,6 @@ function showCart(){
 	);
 	
 	for(var i = 0; i < cart.length; i++){
-		console.log(i + " - " + cart[i]);
 		if(cart[i] == undefined){
 			continue;
 		}else{
@@ -102,7 +108,7 @@ function showCart(){
 				)
 				.append(
 					$('<td>')
-					.attr('value',cart[i].amount)
+					.attr('value',cart[i].amount < 1 ? "1/2" : cart[i].amount)
 					.text(cart[i].amount)
 					.addClass('center')
 				)

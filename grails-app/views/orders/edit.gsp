@@ -6,8 +6,10 @@
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Orders')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'orders.css')}" type="text/css">
-		<r:require module="jquery-ui"/>
-		<g:javascript src="/orders/orders.js"/>
+		<%--<r:require module="jquery-ui"/>--%>		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css">
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	</head>
 	
 	<r:script>
@@ -53,83 +55,61 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>						
-			
-				<h1>Pizzas</h1>
-					
-				<g:each in="${category}" var="c">
-					<g:if test="${c.type == 'Pizza' }">
-						<h1 onclick="show('category${c.id}')" style="cursor: pointer; border: outset 2px; background-color: #efefef; width: 250px; text-align: center;">${c.name}</h1>
-						<div id="category${c.id}" style="display: none;">
-							<fieldset class="form" style="padding: 0;">
-								<g:each in="${products}" var="p" status="i">
-									<g:if test="${p.category.id.equals(c.id)}">
-										<div id="div">
-											<div id="pizza${p.id}" class="fieldcontain pizzas" 
-											<g:if test="${c.type == 'Pizza' }"> onclick="show('size${p.id}')"</g:if>
-											<g:else>onclick="addToCart('${i}','${c.type.toLowerCase()}')"</g:else>>
-												<dl>
-													<dt>
-														<strong>${p.name}</strong><span>R$ ${p.cost}</span>
-													</dt>
-													<dd>${p.description}</dd>
-												</dl>
-											</div>
-											<div id="size${p.id}" style="width: 100px; height: 50px; margin-left: 30px; display: none;">
-												<span class="span" onclick="addToCart('${i}','${c.type.toLowerCase()}')">Inteira</span>
-												<span class="span" onclick="teste('${i}')">1/2</span>
-											</div>
-											<div id="half${p.id}" style="width: 250px; height: 50px; margin: 3px 0px 0px 10px; display: none;">
-												<span class="span2">Escolha a segunda opção !</span>
-											</div>
-										</div>									
-									</g:if>
-								</g:each>
-							</fieldset>
+				
+				<div id="tabs_list">
+					<ul id="tabs">
+						<g:each in="${category}" var="c">
+							<li><a href="#category${c.id}">${c.name}</a></li>
+						</g:each>							
+					</ul>
+				</div>
+				<div id="tabs_content">
+					<g:each in="${category}" var="c">
+						<div id="category${c.id}" class="category">
+							<table>
+								<thead>
+									<th class="left">Produto</th>
+									<th class="left">Descrição</th>
+									<th class="center">Valor</th>
+									<th class="center">Broto</th>
+									<th class="center">1/2</th>
+									<th class="center">Quantidade</th>
+									<th class="center">Carrinho</th>
+								</thead>
+								<tbody>
+									<g:each in="${products}" var="p">
+										<g:if test="${c.id == p.categoryId}">
+											<tr>
+												<td>${p.name}</td>
+												<td class="productdescription">${p.description}</td>
+												<td class="center" style="width: 65px;">R$ ${p.cost}</td>
+												<td class="center"><g:checkBox id="mini${p.id}" name="mini" /></td>
+												<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
+												<td class="center"><input id="spinner${p.id}" name="value"/></td>
+												<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
+											</tr>
+										</g:if>											
+									</g:each>
+								</tbody>
+							</table>
 						</div>
-					</g:if>
-				</g:each>
+					</g:each>
+				</div>
 				
-				<br><br>
-				
-				<h1>Bebidas</h1>
-					
-				<g:each in="${category}" var="c">
-					<g:if test="${c.type == 'Bebida' }">
-						<h1 onclick="show('category${c.id}')" style="cursor: pointer; border: outset 2px; background-color: #efefef; width: 250px; text-align: center;">${c.name}</h1>
-						<div id="category${c.id}" style="display: none;">
-							<fieldset class="form" style="padding: 0;">
-								<g:each in="${products}" var="p" status="i">
-									<g:if test="${p.category.id.equals(c.id)}">
-										<div id="div">
-											<div id="pizza${p.id}" class="fieldcontain pizzas" onclick="addToCart('${i}','${c.type.toLowerCase()}')">
-												<dl>
-													<dt>
-														<strong>${p.name}</strong><span>R$ ${p.cost}</span>
-													</dt>
-													<dd>${p.description}</dd>
-												</dl>
-											</div>												
-										</div>									
-									</g:if>
-								</g:each>
-							</fieldset>
-						</div>
-					</g:if>
-				</g:each>
-				
-				<br><br>					
-				
-				<h1>Pedido</h1>
-				<fieldset style="padding: 20px 0 30px;">										
+				<fieldset style="padding: 20px 0 30px;">
 					<table id="cartTable">
 						<thead id="cartHead">
 							<tr>
-								<th>Produto</th><th>Unidade</th><th>Quantidade</th><th>Subtotal</th><th>Remover Produto</th>
+								<th class="left">Produto</th>
+								<th class="left">Unidade</th>
+								<th class="center">Quantidade</th>
+								<th class="left">Subtotal</th>
+								<th class="center">Remover</th>
 							</tr>
 						</thead>
 						<tbody id="cartBody">
 						</tbody>
-						<tfoot id="cartFoot" style="display: none;">
+						<tfoot id="cartFoot">
 							<tr>
 								<th>Total</th>
 								<th></th>
@@ -140,17 +120,23 @@
 						</tfoot>
 					</table>											
 				</fieldset>
-			
+																							
 				<div id="cart">
 					<input type="hidden" id="total" name="total"/>
-					<div id="cartproduct"></div>
 				</div>
 				
 				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<span class="spanCart">Visualizar</span>						
+					<span class="spanOrder">Voltar para Pedido</span>
+					<g:actionSubmit class="save" action="update" value="Alterar" style="display: none;"/>
+					<g:actionSubmit class="delete" action="delete" value="Deletar" formnovalidate="" onclick="return confirm('Deseja remover pedido ${order.id} ?');" style="display: none;"/>
 				</fieldset>
 			</g:form>
 		</div>
+		<g:javascript src="/orders/tab.js"/>
+		<g:javascript src="/orders/orders.js"/>
+		<script type="text/javascript">		
+			$('input[id*="spinner"]').spinner({min: 1});
+		</script>
 	</body>
 </html>

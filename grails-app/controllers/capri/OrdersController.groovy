@@ -39,8 +39,6 @@ class OrdersController {
 		params.client = Client.findById(params.clientId)
 		params.total = params.total.toDouble()
 
-		print params
-			
 		def product
 		def amount
 		def items
@@ -94,7 +92,7 @@ class OrdersController {
         def order = Orders.get(id)
 		def client = Client.get(order.client.id)
 		def items = Items.findAllByOrder(order)
-		def products = Product.list(sort: "category")		
+		def products = Product.list(sort: "id")		
 		def category = Category.list()
         if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
@@ -111,7 +109,7 @@ class OrdersController {
 		def items = Items.findAllByOrder(order)
 		def product = null
 		def amount = null
-		def total = params.total
+		def total = params.total.toDouble()
 		
 		print "total: "+total	
 		
@@ -119,8 +117,6 @@ class OrdersController {
 			it.delete(flush: true)
 		}
 		
-		print "Params Update: "+params		
-				
         if (!order) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), id])
             redirect(action: "list")
@@ -148,13 +144,13 @@ class OrdersController {
 			params.product.eachWithIndex{ obj, index ->
 				product[index] = Product.get(obj.split(":")[0])
 				amount[index] = obj.split(":")[1]
-				items = new Items(order: order, product: product[index], amount: amount[index])
+				items = new Items(order: order, product: product[index], amount: amount[index].toDouble())
 				order.addToItems(items)
 				items.save()
 			}
 		}
 								
-		order.setTotal(total.toFloat())
+		order.setTotal(total)
 
         if (!order.save(flush: true)) {
             render(view: "edit", model: [order: order, client: client])

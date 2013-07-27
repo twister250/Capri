@@ -36,6 +36,7 @@ strong{
 	background-image: url("../../images/skin/cart.png");
 	background-repeat: no-repeat;
 	text-indent: 30px;
+	height: 22px;
 }
 
 .spanOrder{ float: right; margin: 0 20px;}
