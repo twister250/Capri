@@ -5,4 +5,5 @@
 /.classpath
 *.zip
 *.class
-.DS_store
+.DS_Store
+/.link_to_grails_plugins
