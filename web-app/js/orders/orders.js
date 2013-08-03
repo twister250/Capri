@@ -141,3 +141,127 @@ function showCart(){
 	$('#total')
 	.attr('value',totalCost);
 }
+
+function search(data){
+	
+	$('#content')
+	.append(
+		$('<div>')
+		.attr('id','tabs_content')
+		.css('border-top','1px solid #cccccc')
+		.append(
+			$('<div>')
+			.addClass('category')
+			.css('display','block')
+			.append(
+				$('<table>')
+				.append(
+					$('<thead>')
+					.append(
+						$('<tr>')
+						.append(
+							$('<th>')
+							.addClass('left')
+							.text('Produto')
+						)
+						.append(
+							$('<th>')
+							.addClass('left')
+							.text('Descrição')
+						)
+						.append(
+							$('<th>')
+							.addClass('center')
+							.text('Valor')
+						)
+						.append(
+							$('<th>')
+							.addClass('center')
+							.text('Broto')
+						)
+						.append(
+							$('<th>')
+							.addClass('center')
+							.text('1/2')
+						)
+						.append(
+							$('<th>')
+							.addClass('center')
+							.text('Quantidade')
+						)
+						.append(
+							$('<th>')
+							.addClass('center')
+							.text('Carrinho')
+						)
+					)
+				)
+				.append(
+					$('<tbody>')
+					.attr('id','cartBody')
+				)
+			)
+		)
+	);
+		
+	$.each(data, function(){
+		console.log(this);
+		$('#cartBody')
+		.append(
+			$('<tr>')
+			.attr('id',this.id)
+			.css('border','1px solid #cccccc')
+			.append(
+				$('<td>').text(this.name)
+				.css('padding-left','5px')
+			)
+			.append(
+				$('<td>')
+				.text(this.description)
+				.addClass('productdescription')
+			)
+			.append(
+				$('<td>')
+				.attr('value',this.cost)
+				.text('R$ '+parseFloat(this.cost).toFixed(2))
+			)
+			.append(
+				$('<td>')
+				.addClass('center')
+				.append(
+					$('<input>')
+					.attr('type','checkbox')
+				)
+			)
+			.append(
+				$('<td>')
+				.addClass('center')
+				.append(
+					$('<input>')
+					.attr('type','checkbox')
+				)
+			)
+			.append(
+				$('<td>')
+				.addClass('center')
+				.append(
+					$('<input>')
+					.attr('id','spinner'+this.id)
+					.attr('name','value')
+				)
+			)
+			.append(
+				$('<td>')
+				.css('text-align','center')
+				.css('padding-right','0')
+				.append(
+					$('<input>')
+					.attr('type','image')
+					.attr('src','../images/skin/close.png')
+					.css('border','none')
+				)
+			)
+		);
+		$('input[id*="spinner"]').spinner({min: 1});
+	});
+}

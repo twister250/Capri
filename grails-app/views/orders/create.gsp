@@ -12,18 +12,19 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css">
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		
 	</head>
 		
 		<r:script>
 			var products = [			
-				<g:each in="${products}" var="product" status="i">
+				<g:each in="${products}" var="p" status="i">
 					{
-						id: ${product.id},
-						name: '${product.name}',
-						cost: '${product.cost}',
-						category: '${product.category.id}',
-						type:'${product.category.type.toLowerCase()}',
-						amount: 1
+						"id": "${p.id}",
+						"name": "${p.name}",
+						"cost": "${p.cost}",
+						"category": "${p.category.id}",
+						"type": "${p.category.type.toLowerCase()}",
+						"amount": "1"
 					}<g:if test="${products.get(i) != products[-1]}">,</g:if>
 				</g:each>
 			]
@@ -62,85 +63,96 @@
 				</g:form>			
 			</g:if>
 			<g:else>
+				
+				<br>
+				<br>
+				
+				<g:formRemote name="search" url="[action: 'searchProduct']" onSuccess="search(data)" update="content">
+					<label>Buscar: </label><input name="q" type="text"/>
+				</g:formRemote>
+				
+				
 				<g:form action="save">
 					<fieldset class="form">
 						<g:render template="form"/>
 					</fieldset>
 					
-					<div id="tabs_list">
-						<ul id="tabs">
+					<div id="content">		
+						<div id="tabs_list">
+							<ul id="tabs">
+								<g:each in="${category}" var="c">
+									<li><a href="#category${c.id}">${c.name}</a></li>
+								</g:each>							
+							</ul>
+						</div>
+						<div id="tabs_content">
 							<g:each in="${category}" var="c">
-								<li><a href="#category${c.id}">${c.name}</a></li>
-							</g:each>							
-						</ul>
-					</div>
-					<div id="tabs_content">
-						<g:each in="${category}" var="c">
-							<div id="category${c.id}" class="category">
-								<table>
-									<thead>
+								<div id="category${c.id}" class="category">
+									<table>
+										<thead>
+											<th class="left">Produto</th>
+											<th class="left">Descrição</th>
+											<th class="center">Valor</th>
+											<th class="center">Broto</th>
+											<th class="center">1/2</th>
+											<th class="center">Quantidade</th>
+											<th class="center">Carrinho</th>
+										</thead>
+										<tbody>
+											<g:each in="${products}" var="p">
+												<g:if test="${c.id == p.categoryId}">
+													<tr>
+														<td>${p.name}</td>
+														<td class="productdescription">${p.description}</td>
+														<td class="center" style="width: 65px;">R$ ${p.cost}</td>
+														<td class="center"><g:checkBox id="mini${p.id}" name="mini" /></td>
+														<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
+														<td class="center"><input id="spinner${p.id}" name="value"/></td>
+														<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
+													</tr>
+												</g:if>											
+											</g:each>
+										</tbody>
+									</table>
+								</div>
+							</g:each>
+						</div>
+						
+						<fieldset style="padding: 20px 0 30px;">
+							<table id="cartTable">
+								<thead id="cartHead">
+									<tr>
 										<th class="left">Produto</th>
-										<th class="left">Descrição</th>
-										<th class="center">Valor</th>
-										<th class="center">Broto</th>
-										<th class="center">1/2</th>
+										<th class="left">Unidade</th>
 										<th class="center">Quantidade</th>
-										<th class="center">Carrinho</th>
-									</thead>
-									<tbody>
-										<g:each in="${products}" var="p">
-											<g:if test="${c.id == p.categoryId}">
-												<tr>
-													<td>${p.name}</td>
-													<td class="productdescription">${p.description}</td>
-													<td class="center" style="width: 65px;">R$ ${p.cost}</td>
-													<td class="center"><g:checkBox id="mini${p.id}" name="mini" /></td>
-													<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
-													<td class="center"><input id="spinner${p.id}" name="value"/></td>
-													<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
-												</tr>
-											</g:if>											
-										</g:each>
-									</tbody>
-								</table>
-							</div>
-						</g:each>
+										<th class="left">Subtotal</th>
+										<th class="center">Remover</th>
+									</tr>
+								</thead>
+								<tbody id="cartBody">
+								</tbody>
+								<tfoot id="cartFoot">
+									<tr>
+										<th>Total</th>
+										<th></th>
+										<th id="totalAmount"></th>
+										<th id="totalCost"></th>
+										<th></th>
+									</tr>							
+								</tfoot>
+							</table>											
+						</fieldset>
+																										
+						<div id="cart">
+							<input type="hidden" id="total" name="total"/>
+						</div>
+						
+						<fieldset class="buttons" style="margin-top: 50px;">
+							<span class="spanCart">Visualizar</span>						
+							<span class="spanOrder">Voltar para Pedido</span>
+							<g:submitButton name="create" class="save" value="Salvar" style="display: none;"/>
+						</fieldset>
 					</div>
-					
-					<fieldset style="padding: 20px 0 30px;">
-						<table id="cartTable">
-							<thead id="cartHead">
-								<tr>
-									<th class="left">Produto</th>
-									<th class="left">Unidade</th>
-									<th class="center">Quantidade</th>
-									<th class="left">Subtotal</th>
-									<th class="center">Remover</th>
-								</tr>
-							</thead>
-							<tbody id="cartBody">
-							</tbody>
-							<tfoot id="cartFoot">
-								<tr>
-									<th>Total</th>
-									<th></th>
-									<th id="totalAmount"></th>
-									<th id="totalCost"></th>
-									<th></th>
-								</tr>							
-							</tfoot>
-						</table>											
-					</fieldset>
-																								
-					<div id="cart">
-						<input type="hidden" id="total" name="total"/>
-					</div>
-				
-					<fieldset class="buttons" style="margin-top: 50px;">
-						<span class="spanCart">Visualizar</span>						
-						<span class="spanOrder">Voltar para Pedido</span>
-						<g:submitButton name="create" class="save" value="Salvar" style="display: none;"/>
-					</fieldset>
 				</g:form>
 			</g:else>
 		</div>

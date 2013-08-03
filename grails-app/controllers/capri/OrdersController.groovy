@@ -191,4 +191,14 @@ class OrdersController {
 			return client
 		}
 	}
+	
+	def searchProduct(){
+		def query = params.q
+		def result = Product.findAll("from capri.Product as p where p.name like '"+query+"%'") 
+		println "Busca: " + result
+		println "params: "+ params
+		render(contentType: "text/json", encoding: "UTF-8"){
+			result
+		}
+	}
 }

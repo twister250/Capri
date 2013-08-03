@@ -9,6 +9,8 @@ class Client {
 	String cpf
 	boolean active
 	
+	static searchable = true
+	
 	static hasMany = [ orders : Orders ]
 	
 	static constraints = {
