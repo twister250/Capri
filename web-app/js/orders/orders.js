@@ -167,7 +167,7 @@ function search(data){
 						.append(
 							$('<th>')
 							.addClass('left')
-							.text('Descrição')
+							.html('Descri&ccedil;&atilde;o')
 						)
 						.append(
 							$('<th>')
