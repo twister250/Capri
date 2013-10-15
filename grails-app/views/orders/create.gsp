@@ -64,18 +64,19 @@
 			</g:if>
 			<g:else>
 				
-				<br>
-				<br>
-				
-				<g:formRemote name="search" url="[action: 'searchProduct']" onSuccess="search(data)" update="content">
+				<g:formRemote 	
+					name="search" 
+					url="[action: 'searchProduct']" 
+					onSuccess="search(data)" 
+					update="content" 
+					style="position: absolute; top: 350px; left: 865px;">
 					<label>Buscar: </label><input name="q" type="text"/>
 				</g:formRemote>
-				
-				
+
 				<g:form action="save">
-					<fieldset class="form">
+					<fieldset class="form" style="margin-bottom: 100px;">
 						<g:render template="form"/>
-					</fieldset>
+					</fieldset>	
 					
 					<div id="content">		
 						<div id="tabs_list">

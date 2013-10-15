@@ -3,7 +3,7 @@ var ncost = 0;
 var halfPizza = false;
 
 
-$('.product').click(function(){
+$(document).on('click','.product', function(){
 	var id = this.id;
 	var divCart = $('#cart');
 	var amount = $('#spinner'+id).val();
@@ -36,7 +36,8 @@ $('.product').click(function(){
 	}			
 });
 
-$('span[class*="span"]').click(function(){
+
+$(document).on('click','span[class*="span"]', function(){
 	var spanCart = $('.spanCart');
 	var spanOrder = $('.spanOrder');
 	var tabsList = $('#tabs_list');
@@ -238,6 +239,8 @@ function search(data){
 				.addClass('center')
 				.append(
 					$('<input>')
+					.attr('id','half'+this.id)
+					.attr('name','half')
 					.attr('type','checkbox')
 				)
 			)
@@ -255,13 +258,65 @@ function search(data){
 				.css('text-align','center')
 				.css('padding-right','0')
 				.append(
-					$('<input>')
-					.attr('type','image')
-					.attr('src','../images/skin/close.png')
+					$('<img>')
+					.attr('id',this.id)
+					.attr('src','../images/skin/cart.png')
 					.css('border','none')
+					.addClass('product')
 				)
 			)
 		);
 		$('input[id*="spinner"]').spinner({min: 1});
+		
+		$('#content')
+		.append(
+			$('<div>')
+			.attr('id','cart')
+			.append(
+				$('<input>')
+				.attr('type','hidden')
+				.attr('id','total')
+				.attr('name','product')
+			)	
+		);
+		/*
+		<span class="spanCart">Visualizar</span>						
+		<span class="spanOrder">Voltar para Pedido</span>
+		<g:submitButton name="create" class="save" value="Salvar" style="display: none;"/>
+		</fieldset>
+		*/
+		
+		$('#content')
+		.append(
+			$('<fieldset>')
+			.addClass('buttons')
+			.css('margin-top','50px')
+			.append(
+				$('<span>')
+				.addClass('spanCart')
+				.text('Visualizar')
+			)
+			.append(
+				$('<span>')
+				.addClass('spanOrder')
+				.text('Voltar para pedido')
+			)
+			.append(
+				$('<input>')	// <input type="submit" name="create" class="save" value="Salvar" style="display: none;" id="create">
+				.attr('id','create')
+				.attr('type','submit')
+				.attr('name','create')
+				.attr('value','Salvar')
+				.addClass('save')
+				.css('display','none')
+			)
+		);
+		
+		
+
+		if(cart.length > 0){
+			$('.spanCart').css('display','block');
+		}
+		
 	});
 }

@@ -101,4 +101,17 @@ class ProductController {
             redirect(action: "show", id: id)
         }
     }
+	
+	def report(Integer max){
+		params.max = Math.min(max ?: 10, 100)
+		def product = [] 
+		product = Product.executeQuery (""" 
+		select p.name, i.amount from capri.Product p, capri.Items i 
+		where p.id = i.product """) 
+		product.each{
+			println it
+		}
+		
+		[productInstanceList: Product.list(params), productInstanceTotal: Product.count(), items: Items.list(), product: product]
+	}
 }

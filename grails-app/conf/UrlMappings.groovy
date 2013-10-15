@@ -7,6 +7,8 @@ class UrlMappings {
 			}
 		}
 		
+		"/$controller/report"(controller: "$controller", action: "report") 
+		
 		"/"(view: "/index")
 		
 		"500"(view:'/error')

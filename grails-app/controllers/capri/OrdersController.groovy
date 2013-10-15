@@ -201,4 +201,14 @@ class OrdersController {
 			result
 		}
 	}
+	
+	def report(Integer max, Date d) {
+		d ?: new Date()
+		println d
+        params.max = Math.min(max ?: 10, 100)
+        [ordersInstanceList: Orders.list(params), ordersInstanceTotal: Orders.count()]
+    }
+	
+	
+	
 }

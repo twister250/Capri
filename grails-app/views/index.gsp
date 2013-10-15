@@ -99,11 +99,21 @@
 				<li><a class="list" href="${createLink(uri: '/product/list')}">Consultar</a></li>
 				<li><a class="list" href="${createLink(uri: '/category/list')}">Tipos de Produtos</a></li>
 			</ul>
+			<h1>Relatório</h1>
+			<ul>
+				<li><a class="list" href="${createLink(uri: '/client/report')}">Clientes</a></li>
+				<li><a class="list" href="${createLink(uri: '/orders/report')}">Pedidos</a></li>
+				<li><a class="list" href="${createLink(uri: '/product/report')}">Produtos</a></li>
+			</ul>
 
 
 		</div>
 		<div id="page-body" role="main">
-			<h1>Pizzaria Ilha de Capri</h1>		
+			<div id="logo">
+				<g:img uri="/images/skin/logo.png" />
+			</div>
+			
+			<!--<h1>Pizzaria Ilha de Capri</h1>		
 			<div id="controller-list" role="navigation">
 				<ul>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
@@ -111,6 +121,8 @@
 					</g:each>
 				</ul>
 			</div>
+			-->
+			
 		</div>
 	</body>
 </html>
