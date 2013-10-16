@@ -69,7 +69,7 @@
 					url="[action: 'searchProduct']" 
 					onSuccess="search(data)" 
 					update="content" 
-					style="position: absolute; top: 350px; left: 865px;">
+					style="position: relative; float: right; margin-right: 30px;">
 					<label>Buscar: </label><input name="q" type="text"/>
 				</g:formRemote>
 

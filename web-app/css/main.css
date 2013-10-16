@@ -48,7 +48,15 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	background-color: #cccccc;
+	height: 50px;
+	text-align: center;
+}
+
+#grailsLogo h1 {
+	font-size: 48px;
+	color: #666666;
+	margin: 0;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -65,7 +73,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-	color: #48802c;
+	color: #000000;
 }
 
 a:hover, a:active {
@@ -73,7 +81,7 @@ a:hover, a:active {
 }
 
 h1 {
-	color: #48802c;
+	color: #666666;
 	font-weight: normal;
 	font-size: 1.25em;
 	margin: 0.8em 0 0.3em 0;
@@ -108,7 +116,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #cccccc;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
