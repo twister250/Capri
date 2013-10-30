@@ -5,6 +5,9 @@ import java.awt.geom.Arc2D.Float;
 import org.springframework.dao.DataIntegrityViolationException
 
 import grails.plugins.springsecurity.Secured
+import grails.validation.Validateable;
+
+import grails.converters.*
 
 @Secured(['ROLE_ADMIN'])
 class OrdersController {
@@ -202,13 +205,15 @@ class OrdersController {
 		}
 	}
 	
-	def report(Integer max, Date d) {
-		d ?: new Date()
-		println d
-        params.max = Math.min(max ?: 10, 100)
-        [ordersInstanceList: Orders.list(params), ordersInstanceTotal: Orders.count()]
-    }
-	
-	
+	def report(Integer max) {
+		//def d = new Date()
+		//def ordersInstanceList = Orders.findAll("from capri.Orders as o where o.date < '" + d + "'")
+		println params
+		list(max)
+	}
+
+	def reports(Date start, Date end){
+		
+	}	
 	
 }

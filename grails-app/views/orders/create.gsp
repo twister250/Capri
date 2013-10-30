@@ -64,8 +64,8 @@
 			</g:if>
 			<g:else>
 				
-				<g:formRemote 	
-					name="search" 
+				<g:formRemote
+					name="search"
 					url="[action: 'searchProduct']" 
 					onSuccess="search(data)" 
 					update="content" 
