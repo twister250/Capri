@@ -5,8 +5,31 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Orders')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		
+		<script>
+			$(function() {
+				$( "#from" ).datepicker({
+					defaultDate: "+1w",
+					changeMonth: true,
+					numberOfMonths: 3,
+					onClose: function( selectedDate ) {
+						$( "#to" ).datepicker( "option", "minDate", selectedDate );
+					}
+				});
+				$( "#to" ).datepicker({
+					defaultDate: "+1w",
+					changeMonth: true,
+					numberOfMonths: 3,
+					onClose: function( selectedDate ) {
+						$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+					}
+				});
+			});
+		</script>
+		
 	</head>
 	<body>
 		<a href="#list-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -28,11 +51,10 @@
 				onSuccess="report(data)" 
 				update="content"
 			>
-				<input type="submit" name="d" value="Vendas do Dia">
-				<input type="submit" name="s" value="Vendas da Última Semana">
-				<input type="submit" name="m" value="Vendas do Último Mês">
-			</g:formRemote>
-			
+				<p>Início: <input type="text" id="from" name="from"/></p>
+				<p>Fim: <input type="text" id="to" name="to"/></p>
+				
+			</g:formRemote>			
 			
 			<div id="content">				
 				<table style="margin-top: 100px;">
@@ -53,7 +75,7 @@
 						
 							<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "client.name")}</g:link></td>
 						
-							<td><g:formatDate date="${ordersInstance.date}" /></td>
+							<td><g:formatDate date="${ordersInstance.date}" format="dd/MM/yyyy"/></td>
 						
 							<td>R$ ${fieldValue(bean: ordersInstance, field: "total")}</td>
 						
