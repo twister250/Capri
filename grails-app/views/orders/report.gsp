@@ -5,9 +5,10 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Orders')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		
+		<link rel="stylesheet" href="${resource(dir: 'css/jquery-ui/', file: 'jquery-ui-1.10.3.custom.css')}" type="text/css">
+		<g:javascript src="jquery/jquery-1.9.1.js"/>
+		<g:javascript src="jquery-ui/jquery-ui-1.10.3.js"/>
 		
 		<script>
 			$(function() {
@@ -53,10 +54,10 @@
 			>
 				<p>Início: <input type="text" id="from" name="from"/></p>
 				<p>Fim: <input type="text" id="to" name="to"/></p>
-				
+				<input type="submit" />
 			</g:formRemote>			
 			
-			<div id="content">				
+			<div id="content">
 				<table style="margin-top: 100px;">
 					<thead>
 						<tr>
@@ -69,7 +70,7 @@
 						
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="listBody">
 					<g:each in="${ordersInstanceList}" status="i" var="ordersInstance">
 						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						

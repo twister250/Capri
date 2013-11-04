@@ -174,12 +174,7 @@ function search(data){
 							$('<th>')
 							.addClass('center')
 							.text('Valor')
-						)
-						.append(
-							$('<th>')
-							.addClass('center')
-							.text('Broto')
-						)
+						)						
 						.append(
 							$('<th>')
 							.addClass('center')

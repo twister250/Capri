@@ -206,14 +206,39 @@ class OrdersController {
 	}
 	
 	def report(Integer max) {
-		//def d = new Date()
-		//def ordersInstanceList = Orders.findAll("from capri.Orders as o where o.date < '" + d + "'")
-		println params
-		list(max)
+		//println params
+		
+		if (params.from == null){
+			list(max)
+		}else{
+			//def ordersInstanceList = Orders.findAllByDateBetween(params.from, params.to)
+			def ordersInstanceList
+			
+			def from = new Date(params.from)
+			def to = new Date(params.to)
+			
+			println from
+			println to
+			
+			ordersInstanceList = Orders.executeQuery("select o.id, o.client, o.date, o.total from Orders o where o.date between :from and :to ", [from:from, to: to]) 
+			
+			println ordersInstanceList
+			
+			def ordersInstanceTotal = Orders.count()
+			println ordersInstanceList			
+			render(contentType: "text/json", encoding: "UTF-8"){
+				[ordersInstanceList: ordersInstanceList, ordersInstanceTotal: Orders.count()]
+			}
+		}
 	}
 
-	def reports(Date start, Date end){
-		
+	def reports(){
+		def from = new Date(params.from)
+		def to   = new Date(params.to)
+		println "from: " + from
+		println "to: " + to
+		println params
+		redirect(action: "report", params: params)
 	}	
 	
 }

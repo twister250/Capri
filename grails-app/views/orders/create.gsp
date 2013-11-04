@@ -93,8 +93,7 @@
 										<thead>
 											<th class="left">Produto</th>
 											<th class="left">Descrição</th>
-											<th class="center">Valor</th>
-											<th class="center">Broto</th>
+											<th class="center">Valor</th>											
 											<th class="center">1/2</th>
 											<th class="center">Quantidade</th>
 											<th class="center">Carrinho</th>
@@ -105,8 +104,7 @@
 													<tr>
 														<td>${p.name}</td>
 														<td class="productdescription">${p.description}</td>
-														<td class="center" style="width: 65px;">R$ ${p.cost}</td>
-														<td class="center"><g:checkBox id="mini${p.id}" name="mini" /></td>
+														<td class="center" style="width: 65px;">R$ ${p.cost}</td>														
 														<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
 														<td class="center"><input id="spinner${p.id}" name="value"/></td>
 														<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
