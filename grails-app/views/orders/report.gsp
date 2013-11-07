@@ -16,6 +16,7 @@
 					defaultDate: "+1w",
 					changeMonth: true,
 					numberOfMonths: 3,
+					dateFormat: "dd/mm/yy",
 					onClose: function( selectedDate ) {
 						$( "#to" ).datepicker( "option", "minDate", selectedDate );
 					}
@@ -24,6 +25,7 @@
 					defaultDate: "+1w",
 					changeMonth: true,
 					numberOfMonths: 3,
+					dateFormat: "dd/mm/yy",
 					onClose: function( selectedDate ) {
 						$( "#from" ).datepicker( "option", "maxDate", selectedDate );
 					}
@@ -46,21 +48,24 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			
-			<g:formRemote 	
+			<g:formRemote
 				name="report" 
-				url="[action: 'reports']" 
+				url="[action: 'report']"
+				before="validateRange()" 
 				onSuccess="report(data)" 
 				update="content"
 			>
 				<p>Início: <input type="text" id="from" name="from"/></p>
 				<p>Fim: <input type="text" id="to" name="to"/></p>
-				<input type="submit" />
+				<input type="submit" id="dateRange"/>
 			</g:formRemote>			
 			
 			<div id="content">
-				<table style="margin-top: 100px;">
+				<table id="table" style="margin-top: 100px;">
 					<thead>
 						<tr>
+							
+							<g:sortableColumn property="id" title="${message(code: 'orders.date.label', default: 'ID')}" />
 							
 							<g:sortableColumn property="client" title="${message(code: 'orders.date.label', default: 'Cliente')}" />
 						
@@ -73,6 +78,8 @@
 					<tbody id="listBody">
 					<g:each in="${ordersInstanceList}" status="i" var="ordersInstance">
 						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+						
+							<td>${fieldValue(bean: ordersInstance, field: "id")}</td>
 						
 							<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "client.name")}</g:link></td>
 						

@@ -206,21 +206,31 @@ class OrdersController {
 	}
 	
 	def report(Integer max) {
-		//println params
-		
-		if (params.from == null){
+		def from
+		def to
+		if (params.from == null && params.to == null){
 			list(max)
 		}else{
-			//def ordersInstanceList = Orders.findAllByDateBetween(params.from, params.to)
 			def ordersInstanceList
 			
-			def from = new Date(params.from)
-			def to = new Date(params.to)
+			from = new Date().parse("dd/MM/yyyy", params.from)
+			to = new Date().parse("dd/MM/yyyy", params.to)
 			
-			println from
-			println to
-			
-			ordersInstanceList = Orders.executeQuery("select o.id, o.client, o.date, o.total from Orders o where o.date between :from and :to ", [from:from, to: to]) 
+			ordersInstanceList = 
+			Orders.executeQuery("select o.id as id, " + 
+								"o.client as cliente, " +
+								"o.date as data, "+
+								"o.total as total, "+
+								"sum(i.amount) as items " +
+								"from "+
+								"Orders as o, "+ 
+								"Items as i " +
+								"where " +
+								"o.id = i.order " +
+								"and o.date between :from and :to "+
+								"group by " +
+								"o.id, o.client, o.date, o.total",
+								[from:from, to: to])
 			
 			println ordersInstanceList
 			
@@ -231,14 +241,4 @@ class OrdersController {
 			}
 		}
 	}
-
-	def reports(){
-		def from = new Date(params.from)
-		def to   = new Date(params.to)
-		println "from: " + from
-		println "to: " + to
-		println params
-		redirect(action: "report", params: params)
-	}	
-	
 }
