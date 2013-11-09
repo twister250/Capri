@@ -1,5 +1,15 @@
+$('#range').click(function(){
+	var display = $('#report');
+	if(display.css('display') == "none"){
+		display.css('display','block');
+		$('#table').css('marginTop','150px');
+	}
+});
+
 function report(data){
 	//console.log(data.ordersInstanceTotal);
+	var total = 0;
+	var totalProdutos = 0;
 	
 	$.each(data.ordersInstanceList, function(){
 		console.log(this);
@@ -8,7 +18,7 @@ function report(data){
 	$('#content')
 	.append(
 		$('<table>')
-		.css('marginTop','100px')
+		.css('marginTop','40px')
 		.attr('id','table')
 		.append(
 			$('<thead>')
@@ -44,6 +54,7 @@ function report(data){
 						$('<a>')
 						.attr('href','/Capri/orders/report?sort=date&max=10&order=asc')
 						.html('Quantidade Produtos')
+						.css('textAlign','center')
 					)					
 				)
 				.append(
@@ -92,13 +103,48 @@ function report(data){
 			.append(
 				$('<td>')
 				.html(this[4])
+				.css('textAlign','center')
 			)
 			.append(
 				$('<td>')
 				.html('R$ '+this[3])
 			)
 		);
+		
+		total += this[3];
+		totalProdutos += this[4];
+		
+		console.log(total);
+		console.log(totalProdutos);
+		
 	});
+	
+	$('#table')
+	.append(
+		$('<tfoot>')
+		.append(
+			$('<tr>')
+			.append(
+				$('<th>')
+				.html("Total")
+			)
+			.append(
+				$('<th>')
+			)
+			.append(
+				$('<th>')
+			)
+			.append(
+				$('<th>')
+				.html(totalProdutos)
+				.css('textAlign','center')
+			)
+			.append(
+				$('<th>')
+				.html("R$ "+total)
+			)
+		)	
+	);
 }
 
 function validateRange(){
@@ -114,6 +160,8 @@ function validateRange(){
 	}	
 }
 
-
+$('#dateRange').click(function(){
+	$('#report').css('display','none');	
+});
 	
 

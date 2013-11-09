@@ -4,6 +4,8 @@ import java.awt.geom.Arc2D.Float;
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import com.oracle.jrockit.jfr.ContentType;
+
 import grails.plugins.springsecurity.Secured
 import grails.validation.Validateable;
 
@@ -206,39 +208,65 @@ class OrdersController {
 	}
 	
 	def report(Integer max) {
-		def from
-		def to
+		Date from
+		Date to
+		def map = [:]
+		def model = [:]
+		def ordersInstanceList
+		def ordersInstanceTotal = Orders.count()
+		def items = [:]
+		def range = 0
+		
+		def query = "select o.id as id, " +
+					"o.client as cliente, " +
+					"o.date as data, "+
+					"o.total as total, "+
+					"sum(i.amount) as items " +
+					"from "+
+					"Orders as o, "+
+					"Items as i " +
+					"where " +
+					"o.id = i.order " +
+					"and o.date between :from and :to "+
+					"group by " +
+					"o.id, o.client, o.date, o.total"
+		
 		if (params.from == null && params.to == null){
-			list(max)
-		}else{
-			def ordersInstanceList
-			
+			from = new Date().clearTime()
+			to = new Date()
+			to.set(hourOfDay: 23, minute: 59, second: 59)
+			println from
+			println to
+			ordersInstanceList = Orders.findAllByDateBetween(from, to)
+			map.put("view", "report")
+			map.put("encoding", "UTF-8")
+		}else{		
 			from = new Date().parse("dd/MM/yyyy", params.from)
 			to = new Date().parse("dd/MM/yyyy", params.to)
-			
-			ordersInstanceList = 
-			Orders.executeQuery("select o.id as id, " + 
-								"o.client as cliente, " +
-								"o.date as data, "+
-								"o.total as total, "+
-								"sum(i.amount) as items " +
-								"from "+
-								"Orders as o, "+ 
-								"Items as i " +
-								"where " +
-								"o.id = i.order " +
-								"and o.date between :from and :to "+
-								"group by " +
-								"o.id, o.client, o.date, o.total",
-								[from:from, to: to])
-			
-			println ordersInstanceList
-			
-			def ordersInstanceTotal = Orders.count()
-			println ordersInstanceList			
-			render(contentType: "text/json", encoding: "UTF-8"){
-				[ordersInstanceList: ordersInstanceList, ordersInstanceTotal: Orders.count()]
-			}
+			ordersInstanceList = Orders.executeQuery(query, [from:from, to: to])
+			map.put("contentType", "text/json")
+			map.put("encoding", "UTF-8")
+			range = 1
 		}
+		
+		ordersInstanceList.eachWithIndex{ order, index ->
+			items.putAt(order, Items.findAllByOrder(order))			
+		}
+		
+		model.put("ordersInstanceList", ordersInstanceList)
+		model.put("ordersInstanceTotal", ordersInstanceTotal)
+		model.put("items", items)
+		map.put("model", model)
+		
+		println ordersInstanceList		
+		println map		
+				
+		if(range == 0){
+			render(map)
+		}else{
+			render(contentType: "text/json", encoding: "UTF-8"){
+				[ordersInstanceList: ordersInstanceList, ordersInstanceTotal: ordersInstanceTotal, items: items]
+			}
+		}	
 	}
 }
