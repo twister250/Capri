@@ -34,19 +34,6 @@
 				});
 			});
 		</script>
-		
-		<script>
-			var items = [
-				{
-					<g:each in="${items}" var="item" status="i">
-					{
-						"id": "${item.get(i)}",
-					}<g:if test="${item.get(i) != item[-1]}">,</g:if>
-				</g:each>
-				}
-			]		
-		</script>
-		
 	</head>
 	<body>
 		<a href="#list-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -89,7 +76,7 @@
 						
 							<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
 							
-							<g:sortableColumn property="${items}" title="${message(code: 'orders.date.label', default: 'Items')}" />
+							<g:sortableColumn property="item" title="${message(code: 'orders.date.label', default: 'Quantidade de Produtos')}" />
 						
 							<g:sortableColumn property="total" title="${message(code: 'orders.total.label', default: 'Total')}" />
 						
@@ -105,22 +92,26 @@
 						
 							<td><g:formatDate date="${ordersInstance.date}" format="dd/MM/yyyy"/></td>
 							
-							<td>${items[i]}</td>
+							<td>${items[ordersInstance.id]}</td>
 							
-							<td>R$ ${fieldValue(bean: ordersInstance, field: "total")}</td>
+							<td>R$ <g:formatNumber number="${ordersInstance.total}" minFractionDigits="2"/></td>
 						
 						</tr>
 					</g:each>
 					</tbody>
+					<tfoot>
+						<th>Total</th>
+						<th></th>
+						<th></th>
+						<th><g:formatNumber number="${totalAmount}" maxFractionDigits="0"/></th>
+						<th>R$ <g:formatNumber number="${total}" minFractionDigits="2"/></th>
+					</tfoot>
 				</table>
 				<div class="pagination">
 					<g:paginate total="${ordersInstanceTotal}" />
 				</div>
 			</div>
 		</div>
-		
-		<h1>${items}</h1>
-		
 		<g:javascript src="/orders/reports.js"/>
 	</body>
 </html>

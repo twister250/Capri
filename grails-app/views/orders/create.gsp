@@ -104,7 +104,7 @@
 													<tr>
 														<td>${p.name}</td>
 														<td class="productdescription">${p.description}</td>
-														<td class="center" style="width: 65px;">R$ ${p.cost}</td>														
+														<td class="center" style="width: 65px;">R$ <g:formatNumber number="${p.cost}" minFractionDigits="2"/></td>														
 														<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
 														<td class="center"><input id="spinner${p.id}" name="value"/></td>
 														<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>

@@ -4,7 +4,7 @@ import java.awt.geom.Arc2D.Float;
 
 import org.springframework.dao.DataIntegrityViolationException
 
-import com.oracle.jrockit.jfr.ContentType;
+//import com.oracle.jrockit.jfr.ContentType;
 
 import grails.plugins.springsecurity.Secured
 import grails.validation.Validateable;
@@ -210,13 +210,16 @@ class OrdersController {
 	def report(Integer max) {
 		Date from
 		Date to
+		def amount
+		def totalAmount = 0
+		def total = 0
+		def range = 0
 		def map = [:]
 		def model = [:]
+		def items = [:]
 		def ordersInstanceList
 		def ordersInstanceTotal = Orders.count()
-		def items = [:]
-		def range = 0
-		
+		def queryItem = "select sum(i.amount) from Items i where i.order = :order"
 		def query = "select o.id as id, " +
 					"o.client as cliente, " +
 					"o.date as data, "+
@@ -235,11 +238,17 @@ class OrdersController {
 			from = new Date().clearTime()
 			to = new Date()
 			to.set(hourOfDay: 23, minute: 59, second: 59)
-			println from
-			println to
 			ordersInstanceList = Orders.findAllByDateBetween(from, to)
 			map.put("view", "report")
 			map.put("encoding", "UTF-8")
+			
+			ordersInstanceList.eachWithIndex{ order, index ->
+				amount = Items.executeQuery(queryItem, [order: order])
+				totalAmount += amount
+				total += order.total
+				items.put(order.id, amount.toString().substring(1, amount.toString().indexOf(".")))
+			}
+			
 		}else{		
 			from = new Date().parse("dd/MM/yyyy", params.from)
 			to = new Date().parse("dd/MM/yyyy", params.to)
@@ -249,18 +258,13 @@ class OrdersController {
 			range = 1
 		}
 		
-		ordersInstanceList.eachWithIndex{ order, index ->
-			items.putAt(order, Items.findAllByOrder(order))			
-		}
-		
 		model.put("ordersInstanceList", ordersInstanceList)
 		model.put("ordersInstanceTotal", ordersInstanceTotal)
 		model.put("items", items)
+		model.put("totalAmount", totalAmount)
+		model.put("total",total)
 		map.put("model", model)
 		
-		println ordersInstanceList		
-		println map		
-				
 		if(range == 0){
 			render(map)
 		}else{
