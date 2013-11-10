@@ -34,6 +34,8 @@
 	<g:textField name="cpf" value="${clientInstance?.cpf}"/>
 </div>
 
+
+<%--
 <div class="fieldcontain ${hasErrors(bean: clientInstance, field: 'active', 'error')} ">
 	<label for="active">
 		<g:message code="client.active.label" default="Ativo" />
@@ -42,7 +44,6 @@
 	<g:checkBox name="active" value="${clientInstance?.active}" />
 </div>
 
-<%--
 <div class="fieldcontain ${hasErrors(bean: clientInstance, field: 'orders', 'error')} ">
 	<label for="orders">
 		<g:message code="client.orders.label" default="Orders" />

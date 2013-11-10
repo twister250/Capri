@@ -58,7 +58,8 @@
 					
 				</li>
 				</g:if>
-			
+
+				<%--			
 				<g:if test="${clientInstance?.active}">
 				<li class="fieldcontain">
 					<span id="active-label" class="property-label"><g:message code="client.active.label" default="Ativo:" /></span>
@@ -67,6 +68,7 @@
 					
 				</li>
 				</g:if>
+				--%>
 			
 				<g:if test="${clientInstance?.orders}">
 				<li class="fieldcontain">

@@ -32,8 +32,6 @@
 					
 						<g:sortableColumn property="cpf" title="${message(code: 'client.cpf.label', default: 'CPF')}" />
 					
-						<g:sortableColumn property="active" title="${message(code: 'client.active.label', default: 'Ativo')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
@@ -47,8 +45,6 @@
 						<td>${fieldValue(bean: clientInstance, field: "address")}</td>
 					
 						<td>${fieldValue(bean: clientInstance, field: "cpf")}</td>
-					
-						<td><g:formatBoolean boolean="${clientInstance.active}" /></td>
 					
 					</tr>
 				</g:each>

@@ -7,7 +7,6 @@ class Client {
 	String address
 	String phone
 	String cpf
-	boolean active
 	
 	static searchable = true
 	

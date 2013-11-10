@@ -105,6 +105,14 @@
 				<li><a class="list" href="${createLink(uri: '/orders/report')}">Pedidos</a></li>
 				<li><a class="list" href="${createLink(uri: '/product/report')}">Produtos</a></li>
 			</ul>
+			<h1>Usuários</h1>
+			<ul>
+				<li><a class="create" href="${createLink(uri: '/account/create')}">Cadastrar</a></li>
+				<li><a class="list" href="${createLink(uri: '/account/list')}">Consultar</a></li>
+			</ul>
+			<h1 style="width: 50px;">
+				<a href="${createLink(uri: '/logout')}" style="padding-left: 5px;">Sair</a>
+			</h1>
 
 
 		</div>

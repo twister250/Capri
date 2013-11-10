@@ -42,7 +42,7 @@
 					
 						<td>${fieldValue(bean: productInstance, field: "description")}</td>
 					
-						<td>R$ ${fieldValue(bean: productInstance, field: "cost")}</td>
+						<td>R$ <g:formatNumber number="${productInstance.cost}" minFractionDigits="2"/></td>
 					
 						<td>${fieldValue(bean: productInstance, field: "category.name")}</td>
 					
