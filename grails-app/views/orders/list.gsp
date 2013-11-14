@@ -42,7 +42,7 @@
 					
 						<td><g:formatDate date="${ordersInstance.date}" format="dd/MM/yyyy HH:ss"/></td>
 					
-						<td>R$ ${fieldValue(bean: ordersInstance, field: "total")}</td>
+						<td><g:formatNumber number="${ordersInstance.total}" minFractionDigits="2" currencySymbol="R\$ " type="currency"/></td>
 					
 					</tr>
 				</g:each>

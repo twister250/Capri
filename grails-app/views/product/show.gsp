@@ -43,10 +43,8 @@
 			
 				<g:if test="${productInstance?.cost}">
 				<li class="fieldcontain">
-					<span id="cost-label" class="property-label"><g:message code="product.cost.label" default="Valor:" /></span>
-					
-						<span class="property-value" aria-labelledby="cost-label">R$ <g:fieldValue bean="${productInstance}" field="cost"/></span>
-					
+					<span id="cost-label" class="property-label"><g:message code="product.cost.label" default="Valor:" /></span>					
+					<span class="property-value" aria-labelledby="cost-label"><g:formatNumber number="${productInstance.cost}" type="currency" currencySymbol="R\$ "/></span>					
 				</li>
 				</g:if>
 			

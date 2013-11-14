@@ -89,9 +89,9 @@
 								<tr>									
 									<td>${item?.product.name}</td>
 									<td>${item?.product.category.type}</td>
-									<td>R$ <g:formatNumber number="${item?.product.cost}${item?.product.cost}" minFractionDigits="2"/></td>
+									<td><g:formatNumber number="${item?.product.cost}" type="currency" currencySymbol="R\$ "/></td>
 									<td><g:formatNumber number="${item?.amount}" maxFractionDigits="0"/></td>
-									<td>R$ <g:formatNumber number="${item?.product.cost * item?.amount}" minFractionDigits="2"/></td>
+									<td><g:formatNumber number="${item?.product.cost * item?.amount}" type="currency" currencySymbol="R\$ "/></td>
 								</tr>
 								<g:set var="totalamount" value="${totalamount = (totalamount + item?.amount)}"/>
 							</g:each>
@@ -102,7 +102,7 @@
 								<th></th>
 								<th></th>
 								<th><g:formatNumber number="${totalamount}" maxFractionDigits="0"/></th>
-								<th>R$ <g:formatNumber number="${ordersInstance.total}" minFractionDigits="2"/></th>
+								<th><g:formatNumber number="${ordersInstance.total}" type="currency" currencySymbol="R\$ "/></th>
 							</tr>
 						</tfoot>
 					</table>				

@@ -76,7 +76,7 @@
 						
 							<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
 							
-							<g:sortableColumn property="item" title="${message(code: 'orders.date.label', default: 'Quantidade de Produtos')}" />
+							<g:sortableColumn property="item" title="${message(code: 'orders.date.label', default: 'Quantidade de Produtos')}" style="text-align: center;"/>
 						
 							<g:sortableColumn property="total" title="${message(code: 'orders.total.label', default: 'Total')}" />
 						
@@ -92,9 +92,9 @@
 						
 							<td><g:formatDate date="${ordersInstance.date}" format="dd/MM/yyyy"/></td>
 							
-							<td>${items[ordersInstance.id]}</td>
+							<td style="text-align: center;">${items[ordersInstance.id]}</td>
 							
-							<td>R$ <g:formatNumber number="${ordersInstance.total}" minFractionDigits="2"/></td>
+							<td><g:formatNumber number="${ordersInstance.total}" type="currency" currencySymbol="R\$"/></td>
 						
 						</tr>
 					</g:each>
@@ -103,8 +103,8 @@
 						<th>Total</th>
 						<th></th>
 						<th></th>
-						<th><g:formatNumber number="${totalAmount}" maxFractionDigits="0"/></th>
-						<th>R$ <g:formatNumber number="${total}" minFractionDigits="2"/></th>
+						<th style="text-align: center;"><g:formatNumber number="${totalAmount}" maxFractionDigits="0"/></th>
+						<th><g:formatNumber number="${total}" type="currency" currencySymbol="R\$"/></th>
 					</tfoot>
 				</table>
 				<div class="pagination">

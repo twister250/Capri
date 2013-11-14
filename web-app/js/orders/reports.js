@@ -107,7 +107,7 @@ function report(data){
 			)
 			.append(
 				$('<td>')
-				.html('R$ '+this[3])
+				.html('R$ '+this[3].toFixed(2).replace(".",","))
 			)
 		);
 		
@@ -141,7 +141,7 @@ function report(data){
 			)
 			.append(
 				$('<th>')
-				.html("R$ "+total)
+				.html("R$ "+total.toFixed(2).replace(".",","))
 			)
 		)	
 	);
