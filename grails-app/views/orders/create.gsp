@@ -94,7 +94,9 @@
 											<th class="left">Produto</th>
 											<th class="left">Descrição</th>
 											<th class="center">Valor</th>											
-											<th class="center">1/2</th>
+											<g:if test="${c.type.equals('Pizza')}">
+												<th class="center">1/2</th>
+											</g:if>
 											<th class="center">Quantidade</th>
 											<th class="center">Carrinho</th>
 										</thead>
@@ -105,7 +107,9 @@
 														<td>${p.name}</td>
 														<td class="productdescription">${p.description}</td>
 														<td class="center" style="width: 65px;">R$ <g:formatNumber number="${p.cost}" minFractionDigits="2"/></td>														
-														<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
+														<g:if test="${c.type.equals('Pizza')}">
+															<td class="center"><g:checkBox id="half${p.id}" name="half" /></td>
+														</g:if>
 														<td class="center"><input id="spinner${p.id}" name="value"/></td>
 														<td class="center"><g:img id="${p.id}" class="product" file="skin/cart.png" /></td>
 													</tr>
@@ -113,7 +117,7 @@
 											</g:each>
 										</tbody>
 									</table>
-								</div>
+								</div>																
 							</g:each>
 						</div>
 						
