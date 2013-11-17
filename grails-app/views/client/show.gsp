@@ -69,7 +69,8 @@
 				</li>
 				</g:if>
 				--%>
-			
+				
+				<%--
 				<g:if test="${clientInstance?.orders}">
 				<li class="fieldcontain">
 					<span id="orders-label" class="property-label"><g:message code="client.orders.label" default="Orders" /></span>
@@ -80,6 +81,7 @@
 					
 				</li>
 				</g:if>
+				--%>
 			
 			</ol>
 			<g:form>
