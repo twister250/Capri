@@ -26,29 +26,25 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'client.name.label', default: 'Nome')}" />
 					
-						<g:sortableColumn property="phone" title="${message(code: 'client.phone.label', default: 'Telefone')}" />
-					
-						<g:sortableColumn property="address" title="${message(code: 'client.address.label', default: 'Endereço')}" />
-					
-						<g:sortableColumn property="cpf" title="${message(code: 'client.cpf.label', default: 'CPF')}" />
-					
-						<g:sortableColumn property="active" title="${message(code: 'client.active.label', default: 'Ativo')}" />
+						<g:sortableColumn property="data" title="${message(code: 'client.phone.label', default: 'Último Pedido')}"/>
+						
+						<g:sortableColumn property="amount" title="Total de Pedidos" style="text-align: center;"/>
+						
+						<g:sortableColumn property="total" title="Total"/>
 					
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${clientInstanceList}" status="i" var="clientInstance">
+				<g:each in="${clientInstanceList}" status="i" var="c">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${clientInstance.id}">${fieldValue(bean: clientInstance, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${c[0]}">${c[1]}</g:link></td>
 					
-						<td>${fieldValue(bean: clientInstance, field: "phone")}</td>
-					
-						<td>${fieldValue(bean: clientInstance, field: "address")}</td>
-					
-						<td>${fieldValue(bean: clientInstance, field: "cpf")}</td>
-					
-						<td><g:formatBoolean boolean="${clientInstance.active}" /></td>
+						<td><g:formatDate date="${c[2]}" format="dd/MM/yyyy"/></td>
+						
+						<td style="text-align: center;">${c[3]}</td>
+						
+						<td><g:formatNumber number="${c[4]}" type="currency" currencySymbol="R\$"/></td>
 					
 					</tr>
 				</g:each>

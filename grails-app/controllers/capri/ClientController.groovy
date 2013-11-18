@@ -1,5 +1,6 @@
 package capri
 
+import org.grails.datastore.mapping.query.Query.ProjectionList;
 import org.springframework.dao.DataIntegrityViolationException
 
 import grails.plugins.springsecurity.Secured
@@ -102,4 +103,22 @@ class ClientController {
             redirect(action: "show", id: id)
         }
     }
+	
+	def report(Integer pages) {
+		params.max = Math.min(pages ?: 10, 100)		
+		def criteria = Orders.createCriteria()		
+		def result = criteria.list {
+			createAlias("client","c")			
+			projections {
+				groupProperty("c.id","id")
+				property("c.name","name")				
+				max("date")
+				rowCount()
+				sum("total")
+			}
+			order("total","asc")
+		}
+		println result		
+		[clientInstanceList: result, clientInstanceTotal: result.size()]
+	}
 }

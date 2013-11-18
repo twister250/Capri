@@ -76,7 +76,7 @@
 						
 							<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
 							
-							<g:sortableColumn property="item" title="${message(code: 'orders.date.label', default: 'Quantidade de Produtos')}" style="text-align: center;"/>
+							<g:sortableColumn property="item" title="${message(code: 'orders.date.label', default: 'Total de Produtos')}" style="text-align: center;"/>
 						
 							<g:sortableColumn property="total" title="${message(code: 'orders.total.label', default: 'Total')}" />
 						
