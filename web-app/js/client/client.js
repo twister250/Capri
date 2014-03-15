@@ -4,9 +4,9 @@ $(function(){
 		var array = new Array();
 		var sum = null;
 		var digit = null;
-		var bool = null;
+		var bool = true;
 		
-		if(cpf.length == 11 && cpf.length != ""){
+		if(cpf.length > 0){
 			for(var i = 0; i < (cpf.length - 2); i++){
 				array.push(cpf[i]);
 			}			
