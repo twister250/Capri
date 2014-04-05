@@ -1,5 +1,7 @@
 package capri
 
+import javassist.bytecode.stackmap.BasicBlock.Catch;
+
 import org.grails.datastore.mapping.query.Query.ProjectionList;
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -19,13 +21,22 @@ class ClientController {
         [clientInstanceList: Client.list(params), clientInstanceTotal: Client.count()]
     }
 
-    def create() {
+    def create() {		
         [clientInstance: new Client(params)]
     }
 
     def save() {
         def clientInstance = new Client(params)
-        if (!clientInstance.save(flush: true)) {
+		/*
+		try{
+			validateForm()
+		}catch(Error e){
+			flash.message = message(code: e.getMessage())
+			render(view: "create", model: [clientInstance: clientInstance, css: "errors"])
+			return
+		}
+		*/
+		if (!clientInstance.save(flush: true)) {
             render(view: "create", model: [clientInstance: clientInstance])
             return
         }
@@ -120,5 +131,43 @@ class ClientController {
 		}
 		println result		
 		[clientInstanceList: result, clientInstanceTotal: result.size()]
+	}
+	
+	def validateForm(){
+		def cpf = params.cpf
+		def phone = params.phone
+		def clientPhone = Client.findByPhone(phone)
+		def clientCpf = Client.findByCpf(cpf)
+		def sum = 0
+		def dv = 0
+		
+		/* Verifica se o campo telefone contém somente números */
+		assert phone.isNumber(), "Campo telefone deve conter somente números"
+				
+		if(cpf.size() > 0) {
+			/* Verifica se o campo cpf contém somente números */
+			assert cpf.isNumber(), "Campo CPF deve conter somente números"
+			
+			/* Verifica se o cpf digitado é válido */
+			[1,0].each{
+				cpf.substring(0, cpf.length() - (it + 1)).eachWithIndex { c, index ->
+					sum += c.toInteger() * (cpf.size() - it.toInteger() - index)
+				}
+				dv = sum % cpf.size() < 2 ?: 11 - (sum % 11)
+				println sum
+				println dv
+				if(Integer.parseInt(cpf.getAt(cpf.length() - it - 1)) != dv){
+					println it
+					println cpf.getAt(cpf.length() - it - 1)
+					println dv
+					assert dv == cpf.getAt(cpf.length() - it - 1), "Número de CPF inválido"
+				}else{
+					sum = 0
+					dv = 0
+				}
+			}
+		}		
+		assert clientPhone == null, "Número de telefone já cadastrado"
+		assert clientCpf == null, "Número de cpf já cadastrado"
 	}
 }

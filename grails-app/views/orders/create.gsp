@@ -64,6 +64,7 @@
 			</g:if>
 			<g:else>
 				
+				
 				<g:formRemote
 					name="search"
 					url="[action: 'searchProduct']" 
@@ -72,7 +73,7 @@
 					style="position: relative; float: right; margin-right: 30px;">
 					<label>Buscar: </label><input name="q" type="text"/>
 				</g:formRemote>
-
+				
 				<g:form action="save">
 					<fieldset class="form" style="margin-bottom: 100px;">
 						<g:render template="form"/>

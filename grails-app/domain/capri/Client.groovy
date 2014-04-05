@@ -14,9 +14,9 @@ class Client {
 	
 	static constraints = {
 		name nullable: false, blank: false
-		phone nullable: false, blank: false
+		phone nullable: false, blank: false, unique: true
 		address nullable: false, blank: false
-		cpf nullable: true, blank: true
+		cpf nullable: true, blank: true, unique: true
 	}
 		
 	static mapping = {

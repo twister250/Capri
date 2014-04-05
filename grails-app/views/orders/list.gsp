@@ -26,7 +26,9 @@
 					
 						<%-- <th><g:message code="orders.client.label" default="Cliente" /></th> --%>
 						
-						<g:sortableColumn property="client" title="${message(code: 'orders.date.label', default: 'Cliente')}" />
+						<g:sortableColumn property="id" title="${message(code: 'orders.id.label', default: 'Pedido')}" />
+						
+						<g:sortableColumn property="client" title="${message(code: 'orders.client.label', default: 'Cliente')}" />
 					
 						<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
 					
@@ -38,7 +40,9 @@
 				<g:each in="${ordersInstanceList}" status="i" var="ordersInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "client.name")}</g:link></td>
+						<td><g:link action="show" id="${ordersInstance.id}">${fieldValue(bean: ordersInstance, field: "id")}</g:link></td>
+					
+						<td>${ordersInstance.client.name}</td>
 					
 						<td><g:formatDate date="${ordersInstance.date}" format="dd/MM/yyyy HH:ss"/></td>
 					

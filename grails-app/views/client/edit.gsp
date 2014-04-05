@@ -5,6 +5,8 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'client.label', default: 'Client')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<g:javascript src="jquery/jquery-1.9.1.js"/>
+		<g:javascript src="client/client.js"/>
 	</head>
 	<body>
 		<a href="#edit-client" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
