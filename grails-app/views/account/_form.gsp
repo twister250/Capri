@@ -31,29 +31,3 @@
 	</label>
 	<g:select name="role" from="${role.authority}" keys="${role.id}"/>
 </div>
-
-<%--
-<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'product', 'error')} ">
-	<label for="product">
-		<g:message code="account.product.label" default="Produto:" />
-		
-	</label>
-<ul class="one-to-many">
-<g:each in="${accountInstance?.product?}" var="p">
-    <li><g:link controller="product" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="product" action="create" params="['account.id': accountInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'product.label', default: 'Product')])}</g:link>
-</li>
-</ul>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'type', 'error')} ">
-	<label for="type">
-		<g:message code="account.type.label" default="Tipo de Produto:" />		
-	</label>
-	<g:select name="type" from="${['Pizza','Bebida']}"/>
-</div>
-
---%>

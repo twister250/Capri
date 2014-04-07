@@ -11,7 +11,7 @@ import grails.validation.Validateable;
 
 import grails.converters.*
 
-@Secured(['ROLE_ADMIN'])
+
 class OrdersController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

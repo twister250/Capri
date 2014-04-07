@@ -3,7 +3,7 @@ package capri
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_ADMIN'])
+
 class ProductController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

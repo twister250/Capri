@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import capri.AccountRole
 
-@Secured(['ROLE_ADMIN'])
+
 class AccountController {
 
     def index() {
@@ -13,8 +13,7 @@ class AccountController {
 	
 	def list(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		def role = AccountRole.executeQuery("select ar.account, ar.role from AccountRole ar")
-		println role
+		def role = AccountRole.executeQuery("select ar.account, ar.role from AccountRole ar")		
 		[accountInstanceList: Account.list(params), accountInstanceTotal: Account.count(), role: role]
 	}
 	
@@ -45,9 +44,7 @@ class AccountController {
 	
 	def save() {
 		def accountInstance = new Account(params)
-		def role = Role.findById(params.role)
-		
-		println role
+		def role = Role.findById(params.role)	
 		
 		if (!accountInstance.save(flush: true)) {
 			render(view: "create", model: [accountInstance: accountInstance])

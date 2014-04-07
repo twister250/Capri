@@ -16,12 +16,6 @@ class BootStrap {
 				
 		AccountRole.create rootAccount, adminRole, true
 		
-		/*
-		assert Account.count() == 1 
-		assert Role.count() == 2
-		assert AccountRole.count() == 1
-		*/
-		
     }
 	
     def destroy = {
