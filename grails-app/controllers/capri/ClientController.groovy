@@ -27,15 +27,15 @@ class ClientController {
 
     def save() {
         def clientInstance = new Client(params)
-		/*
+		
 		try{
-			validateForm()
+			validateCPF()
 		}catch(Error e){
 			flash.message = message(code: e.getMessage())
 			render(view: "create", model: [clientInstance: clientInstance, css: "errors"])
 			return
 		}
-		*/
+		
 		if (!clientInstance.save(flush: true)) {
             render(view: "create", model: [clientInstance: clientInstance])
             return
@@ -133,33 +133,18 @@ class ClientController {
 		[clientInstanceList: result, clientInstanceTotal: result.size()]
 	}
 	
-	def validateForm(){
-		def cpf = params.cpf
-		def phone = params.phone
-		def clientPhone = Client.findByPhone(phone)
-		def clientCpf = Client.findByCpf(cpf)
+	/* Verifica se o cpf digitado é válido */
+	def validateCPF(){
+		def cpf = params.cpf		
 		def sum = 0
-		def dv = 0
-		
-		/* Verifica se o campo telefone contém somente números */
-		assert phone.isNumber(), "Campo telefone deve conter somente números"
-				
-		if(cpf.size() > 0) {
-			/* Verifica se o campo cpf contém somente números */
-			assert cpf.isNumber(), "Campo CPF deve conter somente números"
-			
-			/* Verifica se o cpf digitado é válido */
+		def dv = 0		
+		if(cpf.size() > 0) {			
 			[1,0].each{
 				cpf.substring(0, cpf.length() - (it + 1)).eachWithIndex { c, index ->
 					sum += c.toInteger() * (cpf.size() - it.toInteger() - index)
 				}
-				dv = sum % cpf.size() < 2 ?: 11 - (sum % 11)
-				println sum
-				println dv
-				if(Integer.parseInt(cpf.getAt(cpf.length() - it - 1)) != dv){
-					println it
-					println cpf.getAt(cpf.length() - it - 1)
-					println dv
+				dv = sum % cpf.size() < 2 ?: 11 - (sum % 11)				
+				if(Integer.parseInt(cpf.getAt(cpf.length() - it - 1)) != dv){					
 					assert dv == cpf.getAt(cpf.length() - it - 1), "Número de CPF inválido"
 				}else{
 					sum = 0
@@ -167,7 +152,5 @@ class ClientController {
 				}
 			}
 		}		
-		assert clientPhone == null, "Número de telefone já cadastrado"
-		assert clientCpf == null, "Número de cpf já cadastrado"
 	}
 }
