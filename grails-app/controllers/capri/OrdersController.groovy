@@ -68,8 +68,6 @@ class OrdersController {
 				return
 			}
 			params.product.eachWithIndex{ obj, index ->
-				//print "obj split product: "+obj.split(":")[0]
-				//print "obj split amount: "+obj.split(":")[1]
 				product[index] = Product.get(obj.split(":")[0])
 				amount[index] = obj.split(":")[1]				
 				items = new Items(order: order, product: product[index], amount: amount[index].toDouble())

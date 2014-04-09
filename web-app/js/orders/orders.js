@@ -1,7 +1,4 @@
 var cart = new Array();
-var ncost = 0;
-var halfPizza = false;
-
 
 $(document).on('click','.product', function(){
 	var id = this.id;
@@ -315,6 +312,7 @@ function search(data){
 $(document).on('click','img[class*="remover"]', function(){
 	console.log(this.id);
 	cart.splice(this.id, 1);
+	$('input[value^="'+this.id+':"]').remove();
 	showCart();
 });
 
