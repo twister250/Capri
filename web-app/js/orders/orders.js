@@ -123,10 +123,12 @@ function showCart(){
 					.css('text-align','center')
 					.css('padding-right','0')
 					.append(
-						$('<input>')
-						.attr('type','image')
+						$('<img>')
+						.attr('id',cart[i].id)
 						.attr('src','../images/skin/close.png')
 						.css('border','none')
+						.css('cursor','pointer')
+						.addClass('remover')
 					)
 				)
 			);
@@ -274,13 +276,7 @@ function search(data){
 				.attr('name','product')
 			)	
 		);
-		/*
-		<span class="spanCart">Visualizar</span>						
-		<span class="spanOrder">Voltar para Pedido</span>
-		<g:submitButton name="create" class="save" value="Salvar" style="display: none;"/>
-		</fieldset>
-		*/
-		
+				
 		$('#content')
 		.append(
 			$('<fieldset>')
@@ -297,7 +293,7 @@ function search(data){
 				.text('Voltar para pedido')
 			)
 			.append(
-				$('<input>')	// <input type="submit" name="create" class="save" value="Salvar" style="display: none;" id="create">
+				$('<input>')
 				.attr('id','create')
 				.attr('type','submit')
 				.attr('name','create')
@@ -315,3 +311,10 @@ function search(data){
 		
 	});
 }
+
+$(document).on('click','img[class*="remover"]', function(){
+	console.log(this.id);
+	cart.splice(this.id, 1);
+	showCart();
+});
+
