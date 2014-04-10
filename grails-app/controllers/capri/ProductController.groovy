@@ -106,8 +106,8 @@ class ProductController {
 		params.max = Math.min(max ?: 10, 100)
 		def product = [] 
 		product = Product.executeQuery (""" 
-		select p.name, i.amount from capri.Product p, capri.Items i 
-		where p.id = i.product """) 
+		select p.name, sum(i.amount) from capri.Product p, capri.Items i 
+		where p.id = i.product group by p.name """) 
 		product.each{
 			println it
 		}
