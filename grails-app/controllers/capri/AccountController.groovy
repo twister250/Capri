@@ -30,12 +30,13 @@ class AccountController {
 	
 	def edit(Long id) {
 		def accountInstance = Account.get(id)
+		def role = Role.list()
 		if (!accountInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'account.label', default: 'Account'), id])
 			redirect(action: "list")
 			return
 		}
-		[accountInstance: accountInstance]
+		[accountInstance: accountInstance, role: role]
 	}
 	
 	def create() {
@@ -44,7 +45,7 @@ class AccountController {
 	
 	def save() {
 		def accountInstance = new Account(params)
-		def role = Role.findById(params.role)	
+		def role = Role.findById(params.role)
 		
 		if (!accountInstance.save(flush: true)) {
 			render(view: "create", model: [accountInstance: accountInstance])
@@ -60,6 +61,9 @@ class AccountController {
 	
 	def update(Long id, Long version) {
 		def accountInstance = Account.get(id)
+		def newRole = Role.findById(params.role)
+		def accountRole = AccountRole.findByAccount(accountInstance)
+		
 		if (!accountInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'account.label', default: 'Account'), id])
 			redirect(action: "list")
@@ -82,6 +86,14 @@ class AccountController {
 			render(view: "edit", model: [accountInstance: accountInstance])
 			return
 		}
+		
+		if(newRole != accountRole.role){
+			AccountRole.remove(accountInstance, accountRole.role)
+			if(!AccountRole.create(accountInstance, newRole, true)){
+				render(view: "create", model: [accountInstance: accountInstance])
+				return
+			}
+		}		
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'account.label', default: 'Account'), accountInstance.id])
 		redirect(action: "show", id: accountInstance.id)
