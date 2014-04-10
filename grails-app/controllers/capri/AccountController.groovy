@@ -47,12 +47,20 @@ class AccountController {
 		def accountInstance = new Account(params)
 		def role = Role.findById(params.role)
 		
+		println role
+		
+		if(params.password != params.password2){
+			flash.message = message(code: "Senhas diferentes!")
+			render(view: "create", model: [accountInstance: accountInstance, role: Role.list(), css: "errors"])
+			return
+		}
+		
 		if (!accountInstance.save(flush: true)) {
-			render(view: "create", model: [accountInstance: accountInstance])
+			render(view: "create", model: [accountInstance: accountInstance, role: role])
 			return
 		}
 		if(!AccountRole.create(accountInstance, role, true)){
-			render(view: "create", model: [accountInstance: accountInstance])
+			render(view: "create", model: [accountInstance: accountInstance, role: role])
 			return
 		}
 		flash.message = message(code: 'default.created.message', args: [message(code: 'account.label', default: 'Account'), accountInstance.id])

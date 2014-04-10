@@ -17,7 +17,12 @@
 		<div id="create-account" class="content scaffold-create" role="main">
 			<h1>Adicionar Usuário</h1>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+				<g:if test="${css}">
+					<div class="${css}" role="status">${flash.message}</div>
+				</g:if>
+				<g:else>
+					<div class="message" role="status">${flash.message}</div>
+				</g:else>				
 			</g:if>
 			<g:hasErrors bean="${accountInstance}">
 			<ul class="errors" role="alert">

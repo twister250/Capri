@@ -12,8 +12,16 @@
 <div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'password', 'error')} required">
 	<label for="password">
 		<g:message code="account.password.label" default="Senha:" />		
+	</label>	
+	<g:passwordField name="password" value="${accountInstance?.password}" type="password"/>
+	<span class="required-indicator">* Preenchimento obrigatório</span>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'password', 'error')} required">
+	<label for="password2">
+		<g:message code="account.password.label" default="Digite novamente a Senha:" />		
 	</label>
-	<g:textField name="password" required="" value="${accountInstance?.password}"/>
+	<g:passwordField name="password2" value="${accountInstance?.password}" type="password"/>
 	<span class="required-indicator">* Preenchimento obrigatório</span>
 </div>
 
