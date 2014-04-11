@@ -47,8 +47,6 @@ class AccountController {
 		def accountInstance = new Account(params)
 		def role = Role.findById(params.role)
 		
-		println role
-		
 		if(params.password != params.password2){
 			flash.message = message(code: "Senhas diferentes!")
 			render(view: "create", model: [accountInstance: accountInstance, role: Role.list(), css: "errors"])
@@ -89,7 +87,13 @@ class AccountController {
 		}
 
 		accountInstance.properties = params
-
+		
+		if(params.password != params.password2){
+			flash.message = message(code: "O campo senha deve ser confirmado.")
+			render(view: "create", model: [accountInstance: accountInstance, role: Role.list(), css: "errors"])
+			return
+		}
+		
 		if (!accountInstance.save(flush: true)) {
 			render(view: "edit", model: [accountInstance: accountInstance])
 			return
@@ -109,6 +113,8 @@ class AccountController {
 	
 	def delete(Long id) {
 		def accountInstance = Account.get(id)
+		def accountRole = AccountRole.findByAccount(accountInstance)
+				
 		if (!accountInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'account.label', default: 'Account'), id])
 			redirect(action: "list")
@@ -116,6 +122,7 @@ class AccountController {
 		}
 
 		try {
+			accountRole.removeAll(accountInstance)
 			accountInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'account.label', default: 'Account'), id])
 			redirect(action: "list")
