@@ -90,7 +90,7 @@
 									<td>${item?.product.name}</td>
 									<td>${item?.product.category.type}</td>
 									<td><g:formatNumber number="${item?.product.cost}" type="currency" currencySymbol="R\$ "/></td>
-									<td><g:formatNumber number="${item?.amount}" maxFractionDigits="0"/></td>
+									<td><g:formatNumber number="${item?.amount}" maxFractionDigits="1"/></td>
 									<td><g:formatNumber number="${item?.product.cost * item?.amount}" type="currency" currencySymbol="R\$ "/></td>
 								</tr>
 								<g:set var="totalamount" value="${totalamount = (totalamount + item?.amount)}"/>

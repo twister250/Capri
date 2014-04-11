@@ -1,4 +1,3 @@
-
 <%@ page import="capri.Client" %>
 <!DOCTYPE html>
 <html>
@@ -38,8 +37,8 @@
 				<g:each in="${clientInstanceList}" status="i" var="c">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${c[0]}">${c[1]}</g:link></td>
-					
+						<td><g:link action="show" params="[report: 'report']" id="${c[0]}">${c[1]}</g:link></td>
+																
 						<td><g:formatDate date="${c[2]}" format="dd/MM/yyyy"/></td>
 						
 						<td style="text-align: center;">${c[3]}</td>

@@ -47,13 +47,18 @@ class ClientController {
 
     def show(Long id) {
         def clientInstance = Client.get(id)
+		def orders = Orders.findAllByClient(clientInstance)
         if (!clientInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'client.label', default: 'Client'), id])
             redirect(action: "list")
             return
         }
-
-        [clientInstance: clientInstance]
+						
+		if (params.report){
+			[clientInstance: clientInstance, orders: orders]
+		}else{
+			[clientInstance: clientInstance]
+		}
     }
 
     def edit(Long id) {

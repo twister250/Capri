@@ -58,32 +58,30 @@
 					
 				</li>
 				</g:if>
-
-				<%--			
-				<g:if test="${clientInstance?.active}">
-				<li class="fieldcontain">
-					<span id="active-label" class="property-label"><g:message code="client.active.label" default="Ativo:" /></span>
-					
-						<span class="property-value" aria-labelledby="active-label"><g:formatBoolean boolean="${clientInstance?.active}" /></span>
-					
-				</li>
-				</g:if>
-				--%>
-				
-				<%--
-				<g:if test="${clientInstance?.orders}">
-				<li class="fieldcontain">
-					<span id="orders-label" class="property-label"><g:message code="client.orders.label" default="Orders" /></span>
-					
-						<g:each in="${clientInstance.orders}" var="o">
-						<span class="property-value" aria-labelledby="orders-label"><g:link controller="orders" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-				--%>
-			
 			</ol>
+			
+			<g:if test="${orders}">
+				<h1>Pedidos</h1>				
+				<table>
+					<thead>
+						<tr>
+							<g:sortableColumn property="id" title="${message(code: 'orders.id.label', default: 'Pedido')}" />
+							<g:sortableColumn property="date" title="${message(code: 'orders.date.label', default: 'Data')}" />
+							<g:sortableColumn property="total" title="${message(code: 'orders.total.label', default: 'Total')}" />
+						</tr>
+					</thead>
+					<tbody>
+						<g:each in="${orders}" status="i" var="o">
+							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+								<td><g:link action="show" controller="orders" id="${o.id}">${o.id}</g:link></td>
+								<td><g:formatDate date="${o.date}" format="dd/MM/yyyy HH:ss"/></td>
+								<td><g:formatNumber number="${o.total}" minFractionDigits="2" currencySymbol="R\$ " type="currency"/></td>
+							</tr>
+						</g:each>
+					</tbody>
+				</table>
+			</g:if>
+			
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${clientInstance?.id}" />
