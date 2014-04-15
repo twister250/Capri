@@ -1,4 +1,6 @@
 <%@ page import="capri.Orders" %>
+<%@ page import="capri.Client" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,12 +18,12 @@
 		var products = [			
 			<g:each in="${products}" var="product" status="i">
 				{
-					id: ${product.id},
-					name: '${product.name}',
-					cost: '${product.cost}',
-					category: '${product.category.id}',
-					type:'${product.category.type.toLowerCase()}',
-					amount: 1
+					"id": "${product.id}",
+					"name": "${product.name}",
+					"cost": "${product.cost}",
+					"category": "${product.category.id}",
+					"type":"${product.category.type.toLowerCase()}",
+					"amount": "1"
 				}<g:if test="${products.get(i) != products[-1]}">,</g:if>
 			</g:each>
 		]
@@ -131,8 +133,8 @@
 				</fieldset>
 			</g:form>
 		</div>
-		<g:javascript src="/orders/tab.js"/>
-		<g:javascript src="/orders/orders.js"/>
+		<g:javascript src="orders/tab.js"/>
+		<g:javascript src="orders/orders.js"/>
 		<script type="text/javascript">		
 			$('input[id*="spinner"]').spinner({min: 1});
 		</script>

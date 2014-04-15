@@ -11,25 +11,23 @@
 		<%--<r:require module="jquery-ui"/>--%>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css">
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>		
 	</head>
 		
-		<r:script>
-			var products = [			
-				<g:each in="${products}" var="p" status="i">
-					{
-						"id": "${p.id}",
-						"name": "${p.name}",
-						"cost": "${p.cost}",
-						"category": "${p.category.id}",
-						"type": "${p.category.type.toLowerCase()}",
-						"amount": "1"
-					}<g:if test="${products.get(i) != products[-1]}">,</g:if>
-				</g:each>
-			]
-		</r:script>
-		
+	<r:script>
+		var products = [			
+			<g:each in="${products}" var="p" status="i">
+				{
+					"id": "${p.id}",
+					"name": "${p.name}",
+					"cost": "${p.cost}",
+					"category": "${p.category.id}",
+					"type": "${p.category.type.toLowerCase()}",
+					"amount": "1"
+				}<g:if test="${products.get(i) != products[-1]}">,</g:if>
+			</g:each>
+		]
+	</r:script>
 		
 	<body>
 		<a href="#create-orders" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -160,8 +158,8 @@
 				</g:form>
 			</g:else>
 		</div>
-		<g:javascript src="/orders/tab.js"/>
-		<g:javascript src="/orders/orders.js"/>
+		<g:javascript src="orders/tab.js"/>
+		<g:javascript src="orders/orders.js"/>
 		<script type="text/javascript">		
 			$('input[id*="spinner"]').spinner({min: 1});
 		</script>

@@ -122,7 +122,7 @@ function showCart(){
 					.append(
 						$('<img>')
 						.attr('id',cart[i].id)
-						.attr('src','../images/skin/close.png')
+						.attr('src','/Capri/static/images/skin/close.png')
 						.css('border','none')
 						.css('cursor','pointer')
 						.addClass('remover')
