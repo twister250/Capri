@@ -66,7 +66,7 @@
 				<g:formRemote
 					name="search"
 					url="[action: 'searchProduct']" 
-					onSuccess="search(data)" 
+					onSuccess="search(data)"
 					update="content" 
 					style="position: relative; float: right; margin-right: 30px;">
 					<label>Buscar: </label><input name="q" type="text"/>

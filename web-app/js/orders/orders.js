@@ -120,11 +120,9 @@ function showCart(){
 					.css('text-align','center')
 					.css('padding-right','0')
 					.append(
-						$('<img>')
-						.attr('id',cart[i].id)
-						.attr('src','/Capri/static/images/skin/close.png')
-						.css('border','none')
-						.css('cursor','pointer')
+						$('<span>')
+						.attr('id',cart[i].id)						
+						.css('cursor','pointer')						
 						.addClass('remover')
 					)
 				)
@@ -144,7 +142,13 @@ function showCart(){
 
 function search(data){
 	
+	console.log(cart);
+	
 	$('#content')
+	.append(
+		$('<div>')
+		.attr('id','tabs_list')
+	)
 	.append(
 		$('<div>')
 		.attr('id','tabs_content')
@@ -192,16 +196,91 @@ function search(data){
 					)
 				)
 				.append(
-					$('<tbody>')
-					.attr('id','cartBody')
+					$('<tbody>')					
+				)
+			)			
+		)		
+	)
+	.append(
+		$('<fieldset>')
+		.append(
+			$('<table>')
+			.attr('id','cartTable')
+			.css('display','none')
+			.append(
+				$('<thead>')
+				.attr('id','cartHead')
+				.append(
+					$('<tr>')
+					.append(
+						$('<th>')
+						.text('Produto')
+					)
+					.append(
+						$('<th>')
+						.text('Unidade')
+					)
+					.append(
+						$('<th>')
+						.text('Quantidade')
+					)
+					.append(
+						$('<th>')
+						.text('Sub-total')
+					)
+					.append(
+						$('<th>')
+						.text('Remover')
+					)
+				)				
+			)
+			.append(
+				$('<tbody>')
+				.attr('id','cartBody')						
+			)
+			.append(
+				$('<tfoot>')
+				.attr('id','cartFoot')
+				.append(
+					$('<tr>')
+					.append(
+						$('<th>')
+						.text('Total')
+					)
+					.append(
+						$('<th>')						
+					)
+					.append(
+						$('<th>')
+						.text('')
+					)
+					.append(
+						$('<th>')
+						.text('')
+					)
+					.append(
+						$('<th>')
+						.text('')
+					)
 				)
 			)
+		)
+	)
+	.append(
+		$('<div>')
+		.attr('id','cart')
+		.append(
+			$('<input>')
+			.attr('id','total')
+			.attr('type','hidden')
+			.attr('name','total')
 		)
 	);
 		
 	$.each(data, function(){
 		console.log(this);
-		$('#cartBody')
+		
+		$('.category table').find('tbody')
 		.append(
 			$('<tr>')
 			.attr('id',this.id)
@@ -219,15 +298,7 @@ function search(data){
 				$('<td>')
 				.attr('value',this.cost)
 				.text('R$ '+parseFloat(this.cost).toFixed(2))
-			)
-			.append(
-				$('<td>')
-				.addClass('center')
-				.append(
-					$('<input>')
-					.attr('type','checkbox')
-				)
-			)
+			)			
 			.append(
 				$('<td>')
 				.addClass('center')
@@ -262,54 +333,40 @@ function search(data){
 		);
 		$('input[id*="spinner"]').spinner({min: 1});
 		
-		$('#content')
-		.append(
-			$('<div>')
-			.attr('id','cart')
-			.append(
-				$('<input>')
-				.attr('type','hidden')
-				.attr('id','total')
-				.attr('name','product')
-			)	
-		);
-				
-		$('#content')
-		.append(
-			$('<fieldset>')
-			.addClass('buttons')
-			.css('margin-top','50px')
-			.append(
-				$('<span>')
-				.addClass('spanCart')
-				.text('Visualizar')
-			)
-			.append(
-				$('<span>')
-				.addClass('spanOrder')
-				.text('Voltar para pedido')
-			)
-			.append(
-				$('<input>')
-				.attr('id','create')
-				.attr('type','submit')
-				.attr('name','create')
-				.attr('value','Salvar')
-				.addClass('save')
-				.css('display','none')
-			)
-		);
-		
-		
-
 		if(cart.length > 0){
 			$('.spanCart').css('display','block');
 		}
 		
 	});
+	
+	$('#content')
+	.append(
+		$('<fieldset>')
+		.addClass('buttons')
+		.css('margin-top','50px')
+		.append(
+			$('<span>')
+			.addClass('spanCart')
+			.text('Visualizar')
+		)
+		.append(
+			$('<span>')
+			.addClass('spanOrder')
+			.text('Voltar para pedido')
+		)
+		.append(
+			$('<input>')
+			.attr('id','create')
+			.attr('type','submit')
+			.attr('name','create')
+			.attr('value','Salvar')
+			.addClass('save')
+			.css('display','none')
+		)
+	);	
 }
 
-$(document).on('click','img[class*="remover"]', function(){
+$(document).on('click','span[class*="remover"]', function(){
 	console.log(this.id);
 	cart.splice(this.id, 1);
 	$('input[value^="'+this.id+':"]').remove();

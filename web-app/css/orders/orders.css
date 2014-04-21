@@ -134,3 +134,10 @@ img.product:hover{
 	background-color: #eeeeee;
 	cursor: pointer;	
 }
+
+.remover{
+	background: url("../../images/skin/close.png") no-repeat top left;
+	display: inline-block;
+	width: 22px;
+	height: 22px;	
+}
