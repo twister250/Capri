@@ -5,12 +5,11 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Orders')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		
-		<link rel="stylesheet" href="${resource(dir: 'css/jquery-ui/', file: 'jquery-ui-1.10.3.custom.css')}" type="text/css">
+		<title><g:message code="default.list.label" args="[entityName]" /></title>		
 		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'reports.css')}" type="text/css">
-		<g:javascript src="jquery/jquery-1.9.1.js"/>
-		<g:javascript src="jquery-ui/jquery-ui-1.10.3.js"/>
+		<link rel="stylesheet" href="${resource(dir: 'jquery/jquery-ui-themes-1.10.4/themes/smoothness/', file: 'jquery-ui.css')}" type="text/css">		
+		<script src="../jquery/jquery-1.11.0/jquery-1.11.0.js" type="text/javascript"></script>
+		<script src="../jquery/jquery-ui-1.10.4/js/jquery-ui-1.10.4.js" type="text/javascript"></script>
 		
 		<script>
 			$(function() {
