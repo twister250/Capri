@@ -7,11 +7,10 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'orders.label', default: 'Pedidos')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'orders.css')}" type="text/css">
-		<%--<r:require module="jquery-ui"/>--%>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css">
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>		
+		<link rel="stylesheet" href="${resource(dir: 'css/orders/', file: 'orders.css')}" type="text/css">		
+		<link rel="stylesheet" href="${resource(dir: 'jquery/jquery-ui-themes-1.10.4/themes/smoothness/', file: 'jquery-ui.css')}" type="text/css">		
+		<script src="../jquery/jquery-1.11.0/jquery-1.11.0.js" type="text/javascript"></script>
+		<script src="../jquery/jquery-ui-1.10.4/js/jquery-ui-1.10.4.js" type="text/javascript"></script>				
 	</head>
 		
 	<r:script>

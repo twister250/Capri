@@ -3,9 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'client.label', default: 'Client')}" />
-		<g:javascript src="jquery/jquery-1.9.1.js"/>
-		<g:javascript src="client/client.js"/>
+		<g:set var="entityName" value="${message(code: 'client.label', default: 'Client')}" />		
 		<title>Clientes</title>					
 	</head>
 	<body>
