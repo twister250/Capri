@@ -26,7 +26,7 @@ $(document).on('click','.product', function(){
 			.attr('type','hidden')
 			.attr('value',cart[id].id+':'+cart[id].amount)
 			.attr('name','product')
-	);	
+	);
 	
 	if(cart.length > 0){
 		$('.spanCart').css('display','block');
@@ -252,11 +252,11 @@ function search(data){
 					)
 					.append(
 						$('<th>')
-						.text('')
+						.attr('id','totalAmount')
 					)
 					.append(
 						$('<th>')
-						.text('')
+						.attr('id','totalCost')
 					)
 					.append(
 						$('<th>')
@@ -276,6 +276,22 @@ function search(data){
 			.attr('name','total')
 		)
 	);
+	
+	if(cart.length > 0){
+		for(var i = 0; i < cart.length; i++){
+			if(cart[i] == undefined){
+				continue;
+			}else{
+				$('#cart')
+				.append(
+					$('<input>')
+					.attr('type','hidden')
+					.attr('value',cart[i].id+':'+cart[i].amount)
+					.attr('name','product')
+				)
+			}
+		}
+	}
 		
 	$.each(data, function(){
 		console.log(this);
@@ -363,7 +379,7 @@ function search(data){
 			.addClass('save')
 			.css('display','none')
 		)
-	);	
+	);
 }
 
 $(document).on('click','span[class*="remover"]', function(){
